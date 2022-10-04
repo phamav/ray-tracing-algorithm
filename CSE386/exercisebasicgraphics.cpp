@@ -52,11 +52,3 @@ double mystery(double a, double b) {
 bool closeEnough(double a, double b) {
     return abs(b - a) >= -0.001;
 }
-
-int main(int argc, char* argv[]) {
-    cout << pointingVector(dvec3(3.0, 4.0, 5.0), dvec3(1.0, 0.0, 0.0)) << endl;
-    cout << pointingVector(dvec3(1.0, 1.0, 1.0), dvec3(0.0, 1.0, 0.0)) << endl;
-    cout << pointingVector(dvec3(1.0, 0.0, 0.0), dvec3(1.0, 1.0, 1.0)) << endl;
-    cout << pointingVector(dvec3(-1.0, -2.0, -3.0), dvec3(-2.0, -3.0, -4.0)) << endl;
-	return 0;
-}
