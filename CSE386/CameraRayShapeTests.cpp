@@ -98,6 +98,7 @@ void rayShapeTests() {
 
 int main(int argc, char* argv[]) {
     cout << "testing..." << endl;
+    cout << "testing git..." << endl;
     //cameraRayTests();
     //rayShapeTests();
     
