@@ -6,32 +6,38 @@
  Experimenting with cameras and with viewing rays
  */
 void cameraRayTests() {
-    
-    dvec3 camPos(1, 7, -2);
+    dvec3 camPos(0, 0, 0);
     dvec3 camLookPt(0, 0, -2);
     dvec3 up(0, 1, 0);
     double fov = glm::radians(45.0); // only for perspective cameras
-    int scale = 1; // only for orthographic cameras
+    int scale = 1; // only for orthographic cameras (PPWW on worksheet)
     int nx = 200;
     int ny = 200;
     
-    PerspectiveCamera cam(camPos, camLookPt, up, fov, nx, ny);
-    //OrthographicCamera cam(camPos, camLookPt, up, nx, ny, scale);
+//    PerspectiveCamera cam(camPos, camLookPt, up, fov, nx, ny);
+    OrthographicCamera cam(camPos, camLookPt, up, nx, ny, scale);
     
     // Check that the frame is what we expect (pos, u, v, w)
-    
+    Frame frame = cam.getFrame();
+    cout << frame;
     
     // Check that the image plane is what we expect (top, bottom, left, right)
     // (and distToPlane for perspective cameras)
+//    cout << cam.getDistToPlane() << endl;
+    cout << cam.getTop() << endl;
+    cout << cam.getRight() << endl;
+    cout << cam.getLeft() << endl;
+    cout << cam.getBottom() << endl;
 
     
     
     //*******************************************
     //Ray experiments...set aside camera for a moment
     
-    // Create a ray with origin at (0, 0, 0) and direction (7, 0, 0)
+    // Create a ray with origin at (0, 0, 0) and direction (7, 0, 0) (dir is normalized)
     // How is a ray different from a vector?
-    
+//    Ray ray(dvec3(0, 0, 0), dvec3(7, 0, 0));
+//    cout << ray.origin << " " << ray.dir << endl;
     // Check its origin and direction
     // Note that these are relative to WORLD coordinates and frame (not camera frame)
     
@@ -39,9 +45,9 @@ void cameraRayTests() {
     
     // The parametric equation of the ray is:
     // p(t) = origin + t * dir       (dir is normalized)
-    
-    
-    
+//    cout << ray.getPoint(0.0) << endl;
+//    cout << ray.getPoint(1.0) << endl;
+//    cout << ray.getPoint(27.0) << endl;
     
     //*******************************************
     // Our camera gives us back rays.
@@ -54,7 +60,11 @@ void cameraRayTests() {
     // 1. How do we take a pixel (x,y) in the rendering window and
     // compute its corresponding coordinates in the image plane?
     // (calculations are the same for both camera types)
-    
+    Ray r = cam.getRay(100, 100); // gets the viewing ray for pixel (0, 0)
+    cout << r.origin << endl;
+    cout << r.dir << endl;
+    cout << r.getPoint(0) << endl;
+    cout << r.getPoint(1) << endl;
     
     // 2. How do we take a pixel (x,y) in the rendering window and
     // compute its corresponding viewing ray through the image (origin and angle)?
@@ -68,7 +78,7 @@ void cameraRayTests() {
 void rayShapeTests() {
     
     dvec3 camPos(0, 0, 0);
-    dvec3 camLookPt(0, 1, 0);
+    dvec3 camLookPt(20, 0, 0);
     dvec3 up(0, 1, 0);
     double fov = glm::radians(45.0); // only for perspective cameras
     int scale = 1; // only for orthographic cameras
@@ -85,22 +95,25 @@ void rayShapeTests() {
     ISphere sphere(dvec3(20, 0, 0), 5);
     
     // Create a ray with origin (0, 0, 0) looking in the direction (1, 0, 0)
-    Ray ray(dvec3(20, 0, 0), dvec3(1, 0, 0));
+    Ray ray(dvec3(0, 0, 0), dvec3(1, 0, 0));
     
     // Intuitively: Does this ray intersect this sphere?
     // How can we check with code?
     // WARNING: only works if quadratic(a, b, c, double[2]) is working
-   
+    HitRecord hits[2]; // stores data about the hits including t, and intersection pt.
+    int hitCount = sphere.findIntersections(ray, hits);
+    cout << hitCount << endl;
+    cout << hits[1].interceptPt << endl;
     
+    // can my camera see the sphere?
+    cout << sphere.findIntersections(cam.getRay(100, 100), hits) << endl;
     
 }
 
 
 int main(int argc, char* argv[]) {
-    cout << "testing..." << endl;
-    cout << "testing git..." << endl;
-    //cameraRayTests();
-    //rayShapeTests();
+//    cameraRayTests();
+    rayShapeTests();
     
     return 0;
     

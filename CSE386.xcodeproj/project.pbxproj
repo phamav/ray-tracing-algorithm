@@ -65,7 +65,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		08D27BBC28ECF7C70040210B /* CameraRayShapeTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CameraRayShapeTests.cpp; sourceTree = "<group>"; };
+		08D27BBC28ECF7C70040210B /* CameraRayShapeTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CameraRayShapeTests.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		5175878B24B428FA002E29F2 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		51760051257E9F3500DD37C4 /* eshape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eshape.h; sourceTree = "<group>"; };
 		51760052257E9F3500DD37C4 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
