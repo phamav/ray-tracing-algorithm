@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		08D27BBD28ECF7C80040210B /* CameraRayShapeTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08D27BBC28ECF7C70040210B /* CameraRayShapeTests.cpp */; };
+		08F1C9DF28F6624800B67B31 /* SphereIntersectionTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08F1C9DE28F6624800B67B31 /* SphereIntersectionTests.cpp */; };
+		08F1C9E228F6631600B67B31 /* SampleRaytrace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08F1C9E128F6631600B67B31 /* SampleRaytrace.cpp */; };
 		5175878C24B428FA002E29F2 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5175878B24B428FA002E29F2 /* OpenGL.framework */; };
 		51760097257E9F3800DD37C4 /* raytracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51760053257E9F3500DD37C4 /* raytracer.cpp */; };
 		5176009C257E9F3800DD37C4 /* io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5176005C257E9F3600DD37C4 /* io.cpp */; };
@@ -24,7 +26,6 @@
 		517600B3257E9F3800DD37C4 /* fragmentops.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51760082257E9F3700DD37C4 /* fragmentops.cpp */; };
 		517600B5257E9F3800DD37C4 /* iscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51760085257E9F3700DD37C4 /* iscene.cpp */; };
 		517600B6257E9F3800DD37C4 /* ishape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51760086257E9F3700DD37C4 /* ishape.cpp */; };
-		517600B9257E9F3800DD37C4 /* exercisebasicgraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5176008D257E9F3700DD37C4 /* exercisebasicgraphics.cpp */; };
 		517600BB257E9F3800DD37C4 /* vertexops.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5176008F257E9F3800DD37C4 /* vertexops.cpp */; };
 		517600C5257EA7B000DD37C4 /* usflag.ppm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 517600C4257EA7B000DD37C4 /* usflag.ppm */; };
 		517600C8257EA7E900DD37C4 /* blackbuck.ppm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 517600C7257EA7E900DD37C4 /* blackbuck.ppm */; };
@@ -66,6 +67,9 @@
 
 /* Begin PBXFileReference section */
 		08D27BBC28ECF7C70040210B /* CameraRayShapeTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CameraRayShapeTests.cpp; sourceTree = "<group>"; usesTabs = 0; };
+		08F1C9DE28F6624800B67B31 /* SphereIntersectionTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SphereIntersectionTests.cpp; sourceTree = "<group>"; };
+		08F1C9E028F6625D00B67B31 /* tex.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tex.ppm; sourceTree = "<group>"; };
+		08F1C9E128F6631600B67B31 /* SampleRaytrace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SampleRaytrace.cpp; sourceTree = "<group>"; };
 		5175878B24B428FA002E29F2 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		51760051257E9F3500DD37C4 /* eshape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eshape.h; sourceTree = "<group>"; };
 		51760052257E9F3500DD37C4 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
@@ -105,7 +109,6 @@
 		51760088257E9F3700DD37C4 /* packages.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = packages.config; sourceTree = "<group>"; };
 		5176008B257E9F3700DD37C4 /* colorandmaterials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colorandmaterials.h; sourceTree = "<group>"; };
 		5176008C257E9F3700DD37C4 /* fragmentops.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fragmentops.h; sourceTree = "<group>"; };
-		5176008D257E9F3700DD37C4 /* exercisebasicgraphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exercisebasicgraphics.cpp; sourceTree = "<group>"; };
 		5176008F257E9F3800DD37C4 /* vertexops.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexops.cpp; sourceTree = "<group>"; };
 		517600C4257EA7B000DD37C4 /* usflag.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; name = usflag.ppm; path = CSE386/usflag.ppm; sourceTree = "<group>"; };
 		517600C7257EA7E900DD37C4 /* blackbuck.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; name = blackbuck.ppm; path = CSE386/blackbuck.ppm; sourceTree = "<group>"; };
@@ -157,9 +160,12 @@
 			children = (
 				5176006A257E9F3600DD37C4 /* camera.cpp */,
 				51760052257E9F3500DD37C4 /* camera.h */,
+				08F1C9E028F6625D00B67B31 /* tex.ppm */,
 				51760061257E9F3600DD37C4 /* colorandmaterials.cpp */,
 				5176008B257E9F3700DD37C4 /* colorandmaterials.h */,
 				08D27BBC28ECF7C70040210B /* CameraRayShapeTests.cpp */,
+				08F1C9DE28F6624800B67B31 /* SphereIntersectionTests.cpp */,
+				08F1C9E128F6631600B67B31 /* SampleRaytrace.cpp */,
 				51760055257E9F3600DD37C4 /* CSE386.vcxproj */,
 				51760057257E9F3600DD37C4 /* CSE386.vcxproj.filters */,
 				51760064257E9F3600DD37C4 /* CSE386.vcxproj.user */,
@@ -168,7 +174,6 @@
 				51760062257E9F3600DD37C4 /* Doxyfile */,
 				51760076257E9F3700DD37C4 /* eshape.cpp */,
 				51760051257E9F3500DD37C4 /* eshape.h */,
-				5176008D257E9F3700DD37C4 /* exercisebasicgraphics.cpp */,
 				51760082257E9F3700DD37C4 /* fragmentops.cpp */,
 				5176008C257E9F3700DD37C4 /* fragmentops.h */,
 				51760078257E9F3700DD37C4 /* framebuffer.cpp */,
@@ -265,13 +270,14 @@
 				517600A1257E9F3800DD37C4 /* image.cpp in Sources */,
 				517600B6257E9F3800DD37C4 /* ishape.cpp in Sources */,
 				517600AF257E9F3800DD37C4 /* vertextdata.cpp in Sources */,
-				517600B9257E9F3800DD37C4 /* exercisebasicgraphics.cpp in Sources */,
 				5176009F257E9F3800DD37C4 /* colorandmaterials.cpp in Sources */,
 				517600B1257E9F3800DD37C4 /* utilities.cpp in Sources */,
 				517600AB257E9F3800DD37C4 /* eshape.cpp in Sources */,
 				5176009C257E9F3800DD37C4 /* io.cpp in Sources */,
+				08F1C9E228F6631600B67B31 /* SampleRaytrace.cpp in Sources */,
 				517600AE257E9F3800DD37C4 /* defs.cpp in Sources */,
 				517600B3257E9F3800DD37C4 /* fragmentops.cpp in Sources */,
+				08F1C9DF28F6624800B67B31 /* SphereIntersectionTests.cpp in Sources */,
 				517600B5257E9F3800DD37C4 /* iscene.cpp in Sources */,
 				517600A5257E9F3800DD37C4 /* camera.cpp in Sources */,
 				517600AD257E9F3800DD37C4 /* framebuffer.cpp in Sources */,

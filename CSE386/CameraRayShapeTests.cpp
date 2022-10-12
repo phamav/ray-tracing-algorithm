@@ -111,14 +111,14 @@ void rayShapeTests() {
 }
 
 
-int main(int argc, char* argv[]) {
-//    cameraRayTests();
-//    rayShapeTests();
-    dvec3 up(0, 1, 0);
-    dvec3 w(0.8, 0.6, 0);
-    dvec3 u = glm::normalize(glm::cross(up, w));
-    cout << u << endl;
-    
-    return 0;
-    
-}
+//int main(int argc, char* argv[]) {
+////    cameraRayTests();
+////    rayShapeTests();
+//    dvec3 up(0, 1, 0);
+//    dvec3 w(0.8, 0.6, 0);
+//    dvec3 u = glm::normalize(glm::cross(up, w));
+//    cout << u << endl;
+//    
+//    return 0;
+//    
+//}
