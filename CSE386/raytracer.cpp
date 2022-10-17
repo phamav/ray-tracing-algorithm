@@ -41,16 +41,22 @@ void RayTracer::raytraceScene(FrameBuffer& frameBuffer, int depth,
 				cout << "";
 			}
 			/* CSE 386 - todo  */
-			const VisibleIShape& firstVisibleShape = *theScene.opaqueObjs[0];
-			const IShape& firstShape = *firstVisibleShape.shape;
-			Ray ray = camera.getRay(x, y);
-			OpaqueHitRecord hit;
-			firstShape.findClosestIntersection(ray, hit);
-			if (hit.t != FLT_MAX) {
-				hit.material = firstVisibleShape.material;
-				color C = hit.material.diffuse;
-				frameBuffer.setColor(x, y, C);
+			Ray ray = camera.getRay(x, y); // get the rayfor the pixel at (x, y)
+			OpaqueHitRecord theHit;
+			VisibleIShape::findIntersection(ray, theScene.opaqueObjs, theHit);
+
+			// color based on the shape we hit
+			color c;
+
+			// when the function is done loop thru all the shapes,
+			// hitRecord will have the info about t, interceptPt, normal, material, texture
+			if (theHit.t != FLT_MAX) {
+				c = theHit.material.diffuse;
 			}
+			else {
+				c = defaultColor;
+			}
+			frameBuffer.setColor(x, y, c);
 			frameBuffer.showAxes(x, y, ray, 0.25);			// Displays R/x, G/y, B/z axes
 		}
 	}
