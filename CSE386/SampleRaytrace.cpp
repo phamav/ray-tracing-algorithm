@@ -25,8 +25,8 @@ vector<PositionalLightPtr> lights = { posLight };
 FrameBuffer frameBuffer(WINDOW_WIDTH, WINDOW_HEIGHT);
 RayTracer rayTrace(paleGreen);
 
-dvec3 cameraPos(0, 5, 10);
-dvec3 cameraFocus(0, 5, 0);
+dvec3 cameraPos(0, 5, 2);
+dvec3 cameraFocus(-3, 0, 0);
 dvec3 cameraUp = Y_AXIS;
 double cameraFOV = PI_2;
 
@@ -37,7 +37,9 @@ void render() {
 	int width = frameBuffer.getWindowWidth();
 	int height = frameBuffer.getWindowHeight();
 
-	scene.camera = new PerspectiveCamera(cameraPos, cameraFocus, cameraUp, cameraFOV, width, height);
+	//scene.camera = new PerspectiveCamera(cameraPos, cameraFocus, cameraUp, cameraFOV, width, height);
+	scene.camera = new OrthographicCamera(cameraPos, cameraFocus, cameraUp, cameraFOV, width, height);
+
 	rayTrace.raytraceScene(frameBuffer, 0, scene);
 
 	int frameEndTime = glutGet(GLUT_ELAPSED_TIME); // Get end time
@@ -52,32 +54,40 @@ void resize(int width, int height) {
 
 void buildScene() {
     // Mathematical definitions of your shapes
-	IShape* plane = new IPlane(dvec3(0.0, -2.0, 0.0), dvec3(0.0, 1.0, 0.0)); // point, normal vector
-	ISphere* sphere1 = new ISphere(dvec3(10.0, -5.0, 0.0), 3.0); // center, radius
-	ISphere* sphere2 = new ISphere(dvec3(-2.0, 0.0, -8.0), 2.0);
-	IEllipsoid* ellipsoid = new IEllipsoid(dvec3(4.0, 0.0, 3.0), dvec3(2.0, 1.0, 2.0)); // pos, sizes of axes
-	IDisk* disk = new IDisk(dvec3(15.0, 0.0, 0.0), dvec3(0.0, 0.0, 1.0), 5.0); // pos, normal vector, radius
+	//IShape* plane = new IPlane(dvec3(5.0, 0.0, 0.0), dvec3(1.0, 0.0, 0.0)); // point, normal vector
+	//ISphere* sphere1 = new ISphere(dvec3(10.0, -5.0, 0.0), 3.0); // center, radius
+	//ISphere* sphere2 = new ISphere(dvec3(-2.0, 0.0, -8.0), 2.0);
+	//IEllipsoid* ellipsoid = new IEllipsoid(dvec3(4.0, 0.0, 3.0), dvec3(2.0, 1.0, 2.0)); // pos, sizes of axes
+	//IDisk* disk = new IDisk(dvec3(15.0, 0.0, 0.0), dvec3(0.0, 0.0, 1.0), 5.0); // pos, normal vector, radius
 
     // we need at least one visibleIShape or transparentIShape
-    scene.addOpaqueObject(new VisibleIShape(sphere1, silver));
-	scene.addOpaqueObject(new VisibleIShape(plane, tin));
-	scene.addOpaqueObject(new VisibleIShape(sphere2, bronze));
-	scene.addOpaqueObject(new VisibleIShape(ellipsoid, redPlastic));
-	scene.addOpaqueObject(new VisibleIShape(disk, cyanPlastic));
+ //   scene.addOpaqueObject(new VisibleIShape(sphere1, silver));
+	//scene.addOpaqueObject(new VisibleIShape(plane, tin));
+	//scene.addOpaqueObject(new VisibleIShape(sphere2, bronze));
+	//scene.addOpaqueObject(new VisibleIShape(ellipsoid, redPlastic));
+	//scene.addOpaqueObject(new VisibleIShape(disk, cyanPlastic));
 
+
+	// loop to make 5 spheres
+	for (int i = 0; i < 5; i++) {
+		ISphere* sphere = new ISphere(dvec3(0.0, 0.0, 0.0), 3.0);
+		scene.addOpaqueObject(new VisibleIShape(sphere, redPlastic));
+	}
 	scene.addLight(lights[0]);
 }
-//int main(int argc, char* argv[]) {
-//	graphicsInit(argc, argv, __FILE__);
-//
-//	glutDisplayFunc(render);
-//	glutReshapeFunc(resize);
-//	glutKeyboardFunc(keyboardUtility);
-//	glutMouseFunc(mouseUtility);
-//
-//	buildScene();
-//
-//	glutMainLoop();
-//
-//	return 0;
-//}
+
+
+int main(int argc, char* argv[]) {
+	graphicsInit(argc, argv, __FILE__);
+
+	glutDisplayFunc(render);
+	glutReshapeFunc(resize);
+	glutKeyboardFunc(keyboardUtility);
+	glutMouseFunc(mouseUtility);
+
+	buildScene();
+
+	glutMainLoop();
+
+	return 0;
+}
