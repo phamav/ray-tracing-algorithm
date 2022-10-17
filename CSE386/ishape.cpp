@@ -66,6 +66,12 @@ VisibleIShape::VisibleIShape(IShapePtr shapePtr, const Material& mat, Image* ima
 
 void VisibleIShape::findClosestIntersection(const Ray& ray, OpaqueHitRecord& hit) const {
 	/* 386 - todo */
+	shape->findClosestIntersection(ray, hit);
+
+	if (hit.t != FLT_MAX) {
+		hit.material = material;
+		
+	}
 	hit.t = FLT_MAX;
 	hit.interceptPt = ORIGIN3D;
 	hit.normal = Y_AXIS;
@@ -83,9 +89,20 @@ void VisibleIShape::findClosestIntersection(const Ray& ray, OpaqueHitRecord& hit
 void VisibleIShape::findIntersection(const Ray& ray, const vector<VisibleIShapePtr>& surfaces,
 	OpaqueHitRecord& theHit) {
 	/* CSE 386 - todo  */
+	// loop thru all the shapes in surfaces to find the one with the smallest t value. 
+	// then set the hit to the info about that shape
 	theHit.t = FLT_MAX;
-	theHit.interceptPt = ORIGIN3D;
-	theHit.normal = Y_AXIS;
+	
+	// loop through shape
+	for (const VisibleIShapePtr surface : surfaces) {
+		OpaqueHitRecord test;
+		surface->findClosestIntersection(ray, test);
+
+		// check the test hit record to see if its t is smaller than the one in the hit
+		if (test.t < theHit.t) {
+			theHit = test;
+		}
+	}
 }
 
 /**
