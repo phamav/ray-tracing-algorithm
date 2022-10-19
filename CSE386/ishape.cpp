@@ -726,8 +726,15 @@ void IConeY::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
 
 	if (numHits == 0) {
 		hit.t = FLT_MAX;
-	} else {
+	}
+	else {
 		hit = hits[0];
+		if (std::abs(hit.interceptPt.y - center.y) > (0.5 * height)) {
+			hit = hits[1];
+			if (std::abs(hit.interceptPt.y - center.y) > (0.5 * height)) {
+				hit.t = FLT_MAX;
+			}
+		}
 	}
 }
 
@@ -767,6 +774,12 @@ void ICylinderY::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
 		hit.t = FLT_MAX;
 	} else {
 		hit = hits[0];
+		if (std::abs(hit.interceptPt.y - center.y) > (0.5 * length)) {
+			hit = hits[1];
+			if (std::abs(hit.interceptPt.y - center.y) > (0.5 * length)) {
+				hit.t = FLT_MAX;
+			}
+		}
 	}
 }
 
