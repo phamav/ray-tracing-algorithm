@@ -117,11 +117,15 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);WINDOWS;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <DisableSpecificWarnings>26451;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -170,7 +174,6 @@
     <ClCompile Include="colorandmaterials.cpp" />
     <ClCompile Include="defs.cpp" />
     <ClCompile Include="eshape.cpp" />
-    <ClCompile Include="exercisebasicgraphics.cpp" />
     <ClCompile Include="fragmentops.cpp" />
     <ClCompile Include="framebuffer.cpp" />
     <ClCompile Include="image.cpp" />
@@ -180,6 +183,7 @@
     <ClCompile Include="light.cpp" />
     <ClCompile Include="rasterization.cpp" />
     <ClCompile Include="raytracer.cpp" />
+    <ClCompile Include="SampleRaytrace.cpp" />
     <ClCompile Include="utilities.cpp" />
     <ClCompile Include="vertexops.cpp" />
     <ClCompile Include="vertextdata.cpp" />

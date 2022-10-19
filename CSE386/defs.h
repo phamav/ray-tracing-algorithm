@@ -19,7 +19,7 @@
 
  // Glut takes care of all the system-specific chores required for creating windows, 
  // initializing OpenGL contexts, and handling input events
-#include <gl/freeglut.h>
+#include <GL/freeglut.h>
 
 #define GLM_FORCE_CTOR_INIT
 #define GLM_FORCE_SWIZZLE  // Enable GLM "swizzle" operators

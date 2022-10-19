@@ -11,7 +11,7 @@
 #include <istream>
 #include <iomanip>
 #include <cstdlib>
-
+#include <algorithm>
 #include "defs.h"
 #include "framebuffer.h"
 #include "utilities.h"

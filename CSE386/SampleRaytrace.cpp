@@ -37,8 +37,8 @@ void render() {
 	int width = frameBuffer.getWindowWidth();
 	int height = frameBuffer.getWindowHeight();
 
-	//scene.camera = new PerspectiveCamera(cameraPos, cameraFocus, cameraUp, cameraFOV, width, height);
-	scene.camera = new OrthographicCamera(cameraPos, cameraFocus, cameraUp, cameraFOV, width, height);
+	scene.camera = new PerspectiveCamera(cameraPos, cameraFocus, cameraUp, cameraFOV, width, height);
+	//scene.camera = new OrthographicCamera(cameraPos, cameraFocus, cameraUp, cameraFOV, width, height);
 
 	rayTrace.raytraceScene(frameBuffer, 0, scene);
 
@@ -61,7 +61,7 @@ void buildScene() {
 	//IDisk* disk = new IDisk(dvec3(15.0, 0.0, 0.0), dvec3(0.0, 0.0, 1.0), 5.0); // pos, normal vector, radius
 
     // we need at least one visibleIShape or transparentIShape
- //   scene.addOpaqueObject(new VisibleIShape(sphere1, silver));
+    //scene.addOpaqueObject(new VisibleIShape(sphere1, silver));
 	//scene.addOpaqueObject(new VisibleIShape(plane, tin));
 	//scene.addOpaqueObject(new VisibleIShape(sphere2, bronze));
 	//scene.addOpaqueObject(new VisibleIShape(ellipsoid, redPlastic));
@@ -70,7 +70,7 @@ void buildScene() {
 
 	// loop to make 5 spheres
 	for (int i = 0; i < 5; i++) {
-		ISphere* sphere = new ISphere(dvec3(0.0, 0.0, 0.0), 3.0);
+		ISphere* sphere = new ISphere(dvec3(0.0, 0.0, 0.0), 1.0);
 		scene.addOpaqueObject(new VisibleIShape(sphere, redPlastic));
 	}
 	scene.addLight(lights[0]);
