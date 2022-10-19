@@ -66,16 +66,13 @@ VisibleIShape::VisibleIShape(IShapePtr shapePtr, const Material& mat, Image* ima
 
 void VisibleIShape::findClosestIntersection(const Ray& ray, OpaqueHitRecord& hit) const {
 	/* 386 - todo */
-	shape->findClosestIntersection(ray, hit);
+    shape->findClosestIntersection(ray, hit);
 
-	if (hit.t != FLT_MAX) {
-		hit.material = material;
-		
-	}
-	hit.t = FLT_MAX;
-	hit.interceptPt = ORIGIN3D;
-	hit.normal = Y_AXIS;
-	hit.material = material;
+    if (hit.t < FLT_MAX) {
+        hit.material = material;
+        hit.texture = texture;
+    }
+
 }
 
 /**
