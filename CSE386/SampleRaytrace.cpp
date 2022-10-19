@@ -70,8 +70,14 @@ void buildScene() {
 
 	// loop to make 5 spheres
 	for (int i = 0; i < 5; i++) {
-		ISphere* sphere = new ISphere(dvec3(0.0, 0.0, 0.0), 1.0);
+		double x = 0.0;
+		double y = 0.0;
+		double z = 0.0;
+		ISphere* sphere = new ISphere(dvec3(x, y, z), 1.0);
 		scene.addOpaqueObject(new VisibleIShape(sphere, redPlastic));
+		x += 2.0;
+		y += 2.0;
+		z += 2.0;
 	}
 	scene.addLight(lights[0]);
 }

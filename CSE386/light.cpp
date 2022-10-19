@@ -21,7 +21,11 @@
 
 color ambientColor(const color& matAmbient, const color& lightColor) {
 	/* CSE 386 - todo  */
-	return matAmbient;
+    // matAmbient is a vector holding the rgb for amb for material
+    // lighColor is rbg for the light
+    // color data type is the same as the dvec3 data type
+    // can be done in one line of code
+	return lightColor * matAmbient;
 }
 
 /**

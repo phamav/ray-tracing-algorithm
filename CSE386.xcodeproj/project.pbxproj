@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08D27BBD28ECF7C80040210B /* CameraRayShapeTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08D27BBC28ECF7C70040210B /* CameraRayShapeTests.cpp */; };
-		08F1C9DF28F6624800B67B31 /* SphereIntersectionTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08F1C9DE28F6624800B67B31 /* SphereIntersectionTests.cpp */; };
 		08F1C9E228F6631600B67B31 /* SampleRaytrace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08F1C9E128F6631600B67B31 /* SampleRaytrace.cpp */; };
 		5175878C24B428FA002E29F2 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5175878B24B428FA002E29F2 /* OpenGL.framework */; };
 		51760097257E9F3800DD37C4 /* raytracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51760053257E9F3500DD37C4 /* raytracer.cpp */; };
@@ -30,6 +28,7 @@
 		517600C5257EA7B000DD37C4 /* usflag.ppm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 517600C4257EA7B000DD37C4 /* usflag.ppm */; };
 		517600C8257EA7E900DD37C4 /* blackbuck.ppm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 517600C7257EA7E900DD37C4 /* blackbuck.ppm */; };
 		517600CA257EA7EF00DD37C4 /* snail.ppm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5176007E257E9F3700DD37C4 /* snail.ppm */; };
+		C57A9BBC2906C7AF004657A4 /* colortests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C57A9BBB2906C7AF004657A4 /* colortests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -66,8 +65,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		08D27BBC28ECF7C70040210B /* CameraRayShapeTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CameraRayShapeTests.cpp; sourceTree = "<group>"; usesTabs = 0; };
-		08F1C9DE28F6624800B67B31 /* SphereIntersectionTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SphereIntersectionTests.cpp; sourceTree = "<group>"; };
 		08F1C9E028F6625D00B67B31 /* tex.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tex.ppm; sourceTree = "<group>"; };
 		08F1C9E128F6631600B67B31 /* SampleRaytrace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SampleRaytrace.cpp; sourceTree = "<group>"; };
 		5175878B24B428FA002E29F2 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -113,6 +110,7 @@
 		517600C4257EA7B000DD37C4 /* usflag.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; name = usflag.ppm; path = CSE386/usflag.ppm; sourceTree = "<group>"; };
 		517600C7257EA7E900DD37C4 /* blackbuck.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; name = blackbuck.ppm; path = CSE386/blackbuck.ppm; sourceTree = "<group>"; };
 		51AECD9824B4142F00BC4B16 /* CSE386 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CSE386; sourceTree = BUILT_PRODUCTS_DIR; };
+		C57A9BBB2906C7AF004657A4 /* colortests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = colortests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,13 +156,12 @@
 		51AECD9A24B4142F00BC4B16 /* CSE386 */ = {
 			isa = PBXGroup;
 			children = (
+				C57A9BBB2906C7AF004657A4 /* colortests.cpp */,
 				5176006A257E9F3600DD37C4 /* camera.cpp */,
 				51760052257E9F3500DD37C4 /* camera.h */,
 				08F1C9E028F6625D00B67B31 /* tex.ppm */,
 				51760061257E9F3600DD37C4 /* colorandmaterials.cpp */,
 				5176008B257E9F3700DD37C4 /* colorandmaterials.h */,
-				08D27BBC28ECF7C70040210B /* CameraRayShapeTests.cpp */,
-				08F1C9DE28F6624800B67B31 /* SphereIntersectionTests.cpp */,
 				08F1C9E128F6631600B67B31 /* SampleRaytrace.cpp */,
 				51760055257E9F3600DD37C4 /* CSE386.vcxproj */,
 				51760057257E9F3600DD37C4 /* CSE386.vcxproj.filters */,
@@ -265,7 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51760097257E9F3800DD37C4 /* raytracer.cpp in Sources */,
-				08D27BBD28ECF7C80040210B /* CameraRayShapeTests.cpp in Sources */,
+				C57A9BBC2906C7AF004657A4 /* colortests.cpp in Sources */,
 				517600AA257E9F3800DD37C4 /* light.cpp in Sources */,
 				517600A1257E9F3800DD37C4 /* image.cpp in Sources */,
 				517600B6257E9F3800DD37C4 /* ishape.cpp in Sources */,
@@ -277,7 +274,6 @@
 				08F1C9E228F6631600B67B31 /* SampleRaytrace.cpp in Sources */,
 				517600AE257E9F3800DD37C4 /* defs.cpp in Sources */,
 				517600B3257E9F3800DD37C4 /* fragmentops.cpp in Sources */,
-				08F1C9DF28F6624800B67B31 /* SphereIntersectionTests.cpp in Sources */,
 				517600B5257E9F3800DD37C4 /* iscene.cpp in Sources */,
 				517600A5257E9F3800DD37C4 /* camera.cpp in Sources */,
 				517600AD257E9F3800DD37C4 /* framebuffer.cpp in Sources */,
@@ -341,8 +337,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				HEADER_SEARCH_PATHS = "";
-				LIBRARY_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					/usr/local/Cellar/glm/0.9.9.8,
+					/usr/local/Cellar/freeglut/3.4.0,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/glm/0.9.9.8,
+					/usr/local/Cellar/freeglut/3.4.0,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -398,8 +400,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				HEADER_SEARCH_PATHS = "";
-				LIBRARY_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					/usr/local/Cellar/glm/0.9.9.8,
+					/usr/local/Cellar/freeglut/3.4.0,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/glm/0.9.9.8,
+					/usr/local/Cellar/freeglut/3.4.0,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -416,11 +424,11 @@
 				DEAD_CODE_STRIPPING = YES;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/Cellar/glm/0.9.9.8/include,
-					/usr/local/Cellar/freeglut/3.2.2/include,
+					/usr/local/Cellar/freeglut/3.4.0/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/Cellar/glm/0.9.9.8/lib,
-					/usr/local/Cellar/freeglut/3.2.2/lib,
+					/usr/local/Cellar/freeglut/3.4.0/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -434,11 +442,11 @@
 				DEAD_CODE_STRIPPING = YES;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/Cellar/glm/0.9.9.8/include,
-					/usr/local/Cellar/freeglut/3.2.2/include,
+					/usr/local/Cellar/freeglut/3.4.0/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/Cellar/glm/0.9.9.8/lib,
-					/usr/local/Cellar/freeglut/3.2.2/lib,
+					/usr/local/Cellar/freeglut/3.4.0/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
