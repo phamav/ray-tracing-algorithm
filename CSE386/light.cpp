@@ -10,6 +10,7 @@
 #include "light.h"
 #include "io.h"
 #include "ishape.h"
+#include <algorithm>
 
  /**
   * @fn	color ambientColor(const color &matAmbient, const color &lightColor)
@@ -41,7 +42,7 @@ color ambientColor(const color& matAmbient, const color& lightColor) {
 color diffuseColor(const color& matDiffuse, const color& lightColor,
 	const dvec3& l, const dvec3& n) {
 	/* CSE 386 - todo  */
-	return matDiffuse;
+	return lightColor * matDiffuse * std::max(0.0, glm::dot(l, n));
 
 }
 
@@ -61,7 +62,8 @@ color specularColor(const color& matSpecular, const color& lightColor,
 	double shininess,
 	const dvec3& r, const dvec3& v) {
 	/* CSE 386 - todo  */
-	return matSpecular;
+    double max = std::max(0.0, glm::dot(r, v));
+	return lightColor * matSpecular * glm::pow(max, shininess);
 }
 
 /**
@@ -86,8 +88,29 @@ color totalColor(const Material& mat, const color& lightColor,
 	const dvec3& lightPos, const dvec3& intersectionPt,
 	bool attenuationOn,
 	const LightATParams& ATparams) {
-	/* CSE 386 - todo  */
-	return mat.diffuse;
+    // calculate light and reflection vector
+    dvec3 l = glm::normalize(lightPos - intersectionPt);
+    dvec3 r = glm::normalize(2 * glm::dot(l, n) * n - l);
+    // calculate ambient, diffuse, and specular color
+    color ambient = ambientColor(mat.ambient, lightColor);
+    color diffuse = diffuseColor(mat.diffuse, lightColor, l, n);
+    color specular = specularColor(mat.specular, lightColor, mat.shininess, r, v);
+    color total;
+    
+    if (attenuationOn) {
+        double distance = glm::distance(lightPos, intersectionPt);
+        double factor = ATparams.factor(distance);
+        total = ambient + factor * diffuse + factor * specular;
+    } else {
+        total = ambient + diffuse + specular;
+    }
+    
+    // clip to [0, 1]
+    total.r = std::max(0.0, std::min(total.r, 1.0));
+    total.g = std::max(0.0, std::min(total.g, 1.0));
+    total.b = std::max(0.0, std::min(total.b, 1.0));
+    
+	return total;
 }
 
 /**
@@ -108,9 +131,19 @@ color PositionalLight::illuminate(const dvec3& interceptWorldCoords,
 	const Material& material,
 	const Frame& eyeFrame,
 	bool inShadow) const {
-
-	/* CSE 386 - todo  */
-	return material.diffuse;
+    // (3 pt) If the light is off (i.e., not on), return black.
+    if (!isOn) {
+        return black;
+    }
+    // (3 pt) If light is on and is in shadow, return only the ambient contribution.
+    if (isOn && inShadow) {
+        return ambientColor(material.ambient, lightColor);
+    }
+    // (3 pts) If light is on and not in shadow, return the value computed by totalColor.
+    if (isOn && !inShadow) {
+        return totalColor(material, lightColor, glm::normalize(eyeFrame.origin - interceptWorldCoords), normal, pos, interceptWorldCoords, attenuationIsTurnedOn, atParams);
+    }
+    return white;
 }
 
 /*
