@@ -172,6 +172,7 @@
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="colorandmaterials.cpp" />
+    <ClCompile Include="colortests.cpp" />
     <ClCompile Include="defs.cpp" />
     <ClCompile Include="eshape.cpp" />
     <ClCompile Include="fragmentops.cpp" />
@@ -183,7 +184,6 @@
     <ClCompile Include="light.cpp" />
     <ClCompile Include="rasterization.cpp" />
     <ClCompile Include="raytracer.cpp" />
-    <ClCompile Include="SampleRaytrace.cpp" />
     <ClCompile Include="utilities.cpp" />
     <ClCompile Include="vertexops.cpp" />
     <ClCompile Include="vertextdata.cpp" />

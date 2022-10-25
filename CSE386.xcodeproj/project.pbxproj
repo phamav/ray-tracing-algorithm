@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08F1C9E228F6631600B67B31 /* SampleRaytrace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08F1C9E128F6631600B67B31 /* SampleRaytrace.cpp */; };
 		5175878C24B428FA002E29F2 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5175878B24B428FA002E29F2 /* OpenGL.framework */; };
 		51760097257E9F3800DD37C4 /* raytracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51760053257E9F3500DD37C4 /* raytracer.cpp */; };
 		5176009C257E9F3800DD37C4 /* io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5176005C257E9F3600DD37C4 /* io.cpp */; };
@@ -66,7 +65,6 @@
 
 /* Begin PBXFileReference section */
 		08F1C9E028F6625D00B67B31 /* tex.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tex.ppm; sourceTree = "<group>"; };
-		08F1C9E128F6631600B67B31 /* SampleRaytrace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SampleRaytrace.cpp; sourceTree = "<group>"; };
 		5175878B24B428FA002E29F2 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		51760051257E9F3500DD37C4 /* eshape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eshape.h; sourceTree = "<group>"; };
 		51760052257E9F3500DD37C4 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
@@ -162,7 +160,6 @@
 				08F1C9E028F6625D00B67B31 /* tex.ppm */,
 				51760061257E9F3600DD37C4 /* colorandmaterials.cpp */,
 				5176008B257E9F3700DD37C4 /* colorandmaterials.h */,
-				08F1C9E128F6631600B67B31 /* SampleRaytrace.cpp */,
 				51760055257E9F3600DD37C4 /* CSE386.vcxproj */,
 				51760057257E9F3600DD37C4 /* CSE386.vcxproj.filters */,
 				51760064257E9F3600DD37C4 /* CSE386.vcxproj.user */,
@@ -271,7 +268,6 @@
 				517600B1257E9F3800DD37C4 /* utilities.cpp in Sources */,
 				517600AB257E9F3800DD37C4 /* eshape.cpp in Sources */,
 				5176009C257E9F3800DD37C4 /* io.cpp in Sources */,
-				08F1C9E228F6631600B67B31 /* SampleRaytrace.cpp in Sources */,
 				517600AE257E9F3800DD37C4 /* defs.cpp in Sources */,
 				517600B3257E9F3800DD37C4 /* fragmentops.cpp in Sources */,
 				517600B5257E9F3800DD37C4 /* iscene.cpp in Sources */,
