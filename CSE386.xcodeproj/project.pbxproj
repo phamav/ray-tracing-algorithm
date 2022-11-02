@@ -27,7 +27,7 @@
 		517600C5257EA7B000DD37C4 /* usflag.ppm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 517600C4257EA7B000DD37C4 /* usflag.ppm */; };
 		517600C8257EA7E900DD37C4 /* blackbuck.ppm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 517600C7257EA7E900DD37C4 /* blackbuck.ppm */; };
 		517600CA257EA7EF00DD37C4 /* snail.ppm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5176007E257E9F3700DD37C4 /* snail.ppm */; };
-		C57A9BBC2906C7AF004657A4 /* colortests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C57A9BBB2906C7AF004657A4 /* colortests.cpp */; };
+		C52C949129120F3F0015C836 /* cylinderconetests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C52C949029120F3F0015C836 /* cylinderconetests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -108,7 +108,7 @@
 		517600C4257EA7B000DD37C4 /* usflag.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; name = usflag.ppm; path = CSE386/usflag.ppm; sourceTree = "<group>"; };
 		517600C7257EA7E900DD37C4 /* blackbuck.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; name = blackbuck.ppm; path = CSE386/blackbuck.ppm; sourceTree = "<group>"; };
 		51AECD9824B4142F00BC4B16 /* CSE386 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CSE386; sourceTree = BUILT_PRODUCTS_DIR; };
-		C57A9BBB2906C7AF004657A4 /* colortests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = colortests.cpp; sourceTree = "<group>"; };
+		C52C949029120F3F0015C836 /* cylinderconetests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cylinderconetests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,7 +154,7 @@
 		51AECD9A24B4142F00BC4B16 /* CSE386 */ = {
 			isa = PBXGroup;
 			children = (
-				C57A9BBB2906C7AF004657A4 /* colortests.cpp */,
+				C52C949029120F3F0015C836 /* cylinderconetests.cpp */,
 				5176006A257E9F3600DD37C4 /* camera.cpp */,
 				51760052257E9F3500DD37C4 /* camera.h */,
 				08F1C9E028F6625D00B67B31 /* tex.ppm */,
@@ -259,7 +259,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				51760097257E9F3800DD37C4 /* raytracer.cpp in Sources */,
-				C57A9BBC2906C7AF004657A4 /* colortests.cpp in Sources */,
 				517600AA257E9F3800DD37C4 /* light.cpp in Sources */,
 				517600A1257E9F3800DD37C4 /* image.cpp in Sources */,
 				517600B6257E9F3800DD37C4 /* ishape.cpp in Sources */,
@@ -269,6 +268,7 @@
 				517600AB257E9F3800DD37C4 /* eshape.cpp in Sources */,
 				5176009C257E9F3800DD37C4 /* io.cpp in Sources */,
 				517600AE257E9F3800DD37C4 /* defs.cpp in Sources */,
+				C52C949129120F3F0015C836 /* cylinderconetests.cpp in Sources */,
 				517600B3257E9F3800DD37C4 /* fragmentops.cpp in Sources */,
 				517600B5257E9F3800DD37C4 /* iscene.cpp in Sources */,
 				517600A5257E9F3800DD37C4 /* camera.cpp in Sources */,

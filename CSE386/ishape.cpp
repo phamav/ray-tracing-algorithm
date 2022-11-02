@@ -729,9 +729,11 @@ void IConeY::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
 	}
 	else {
 		hit = hits[0];
-		if (std::abs(hit.interceptPt.y - center.y) > (0.5 * height)) {
+        hit.interceptPt = ray.getPoint(hit.t);
+		if (hit.interceptPt.y >= center.y || hit.interceptPt.x > (radius * 0.5)) {
 			hit = hits[1];
-			if (std::abs(hit.interceptPt.y - center.y) > (0.5 * height)) {
+            hit.interceptPt = ray.getPoint(hit.t);
+            if (hit.interceptPt.y >= center.y || hit.interceptPt.x > (radius * 0.5)) {
 				hit.t = FLT_MAX;
 			}
 		}
@@ -767,20 +769,23 @@ ICylinderY::ICylinderY(const dvec3& pos, double rad, double len)
  */
 
 void ICylinderY::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
-	static HitRecord hits[2];
-	int numHits = IQuadricSurface::findIntersections(ray, hits);
+    static HitRecord hits[2];
+    int numHits = IQuadricSurface::findIntersections(ray, hits);
 
-	if (numHits == 0) {
-		hit.t = FLT_MAX;
-	} else {
-		hit = hits[0];
-		if (std::abs(hit.interceptPt.y - center.y) > (0.5 * length)) {
-			hit = hits[1];
-			if (std::abs(hit.interceptPt.y - center.y) > (0.5 * length)) {
-				hit.t = FLT_MAX;
-			}
-		}
-	}
+    if (numHits == 0) {
+        hit.t = FLT_MAX;
+    }
+    else {
+        hit = hits[0];
+        hit.interceptPt = ray.getPoint(hit.t);
+        if (std::abs(hit.interceptPt.y - center.y) > (0.5 * length)) {
+            hit = hits[1];
+            hit.interceptPt = ray.getPoint(hit.t);
+            if (std::abs(hit.interceptPt.y - center.y) > (0.5 * length)) {
+                hit.t = FLT_MAX;
+            }
+        }
+    }
 }
 
 /**
