@@ -47,15 +47,22 @@ void RayTracer::raytraceScene(FrameBuffer& frameBuffer, int depth,
 
 			// color based on the shape we hit
 			color c;
-
-			// when the function is done loop thru all the shapes,
-			// hitRecord will have the info about t, interceptPt, normal, material, texture
-			if (theHit.t != FLT_MAX) {
-				c = theHit.material.diffuse;
-			}
-			else {
-				c = defaultColor;
-			}
+            // call illuminate
+            // add lights
+            // clip colors
+            for (PositionalLightPtr light : lights) {
+                if (theHit.t != FLT_MAX) {
+                    bool shadow = light->pointIsInAShadow(theHit.interceptPt, theHit.normal, objs, camera.getFrame());
+                    c += light->illuminate(theHit.interceptPt, theHit.normal, theHit.material, camera.getFrame(), shadow);
+                } else {
+                    c += defaultColor;
+                }
+            }
+            
+            c.r = std::max(0.0, std::min(c.r, 1.0));
+            c.g = std::max(0.0, std::min(c.g, 1.0));
+            c.b = std::max(0.0, std::min(c.b, 1.0));
+            
 			frameBuffer.setColor(x, y, c);
 			frameBuffer.showAxes(x, y, ray, 0.25);			// Displays R/x, G/y, B/z axes
 		}

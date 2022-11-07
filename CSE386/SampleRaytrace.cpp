@@ -19,14 +19,17 @@
 #include "camera.h"
 #include "rasterization.h"
 
-PositionalLightPtr posLight = new PositionalLight(dvec3(10, 10, 10), white);
-vector<PositionalLightPtr> lights = { posLight };
+PositionalLightPtr posLight1 = new PositionalLight(dvec3(5, 5, 5), white);
+PositionalLightPtr posLight2 = new PositionalLight(dvec3(10, 10, 10), white);
+PositionalLightPtr posLight3 = new PositionalLight(dvec3(10, 10, 10), white);
+PositionalLightPtr posLight4 = new PositionalLight(dvec3(10, 10, 10), white);
+vector<PositionalLightPtr> lights = { posLight1, posLight2, posLight3, posLight4 };
 
 FrameBuffer frameBuffer(WINDOW_WIDTH, WINDOW_HEIGHT);
 RayTracer rayTrace(paleGreen);
 
-dvec3 cameraPos(0, 5, 2);
-dvec3 cameraFocus(-3, 0, 0);
+dvec3 cameraPos(1, 2, 0);
+dvec3 cameraFocus(4, 2, 0);
 dvec3 cameraUp = Y_AXIS;
 double cameraFOV = PI_2;
 
@@ -38,8 +41,7 @@ void render() {
 	int height = frameBuffer.getWindowHeight();
 
 	scene.camera = new PerspectiveCamera(cameraPos, cameraFocus, cameraUp, cameraFOV, width, height);
-	//scene.camera = new OrthographicCamera(cameraPos, cameraFocus, cameraUp, cameraFOV, width, height);
-
+    
 	rayTrace.raytraceScene(frameBuffer, 0, scene);
 
 	int frameEndTime = glutGet(GLUT_ELAPSED_TIME); // Get end time
@@ -54,32 +56,21 @@ void resize(int width, int height) {
 
 void buildScene() {
     // Mathematical definitions of your shapes
-	//IShape* plane = new IPlane(dvec3(5.0, 0.0, 0.0), dvec3(1.0, 0.0, 0.0)); // point, normal vector
-	//ISphere* sphere1 = new ISphere(dvec3(10.0, -5.0, 0.0), 3.0); // center, radius
-	//ISphere* sphere2 = new ISphere(dvec3(-2.0, 0.0, -8.0), 2.0);
-	//IEllipsoid* ellipsoid = new IEllipsoid(dvec3(4.0, 0.0, 3.0), dvec3(2.0, 1.0, 2.0)); // pos, sizes of axes
-	//IDisk* disk = new IDisk(dvec3(15.0, 0.0, 0.0), dvec3(0.0, 0.0, 1.0), 5.0); // pos, normal vector, radius
-
+    IShape* plane = new IPlane(dvec3(-5.0, 0.0, 4.0), dvec3(0.0, 0.0, 0.0)); // point, normal vector
+    IConeY* cone1 = new IConeY(dvec3(1.0, 1.0, 0.0), 4.0, 2.0);
+    IConeY* cone2 = new IConeY(dvec3(4.0, 1.0, 0.0), 4.0, 2.0);
+    ICylinderY* cyl = new ICylinderY(dvec3(2.5, 1.0, 0.0), 4.0, 3.0);
     // we need at least one visibleIShape or transparentIShape
-    //scene.addOpaqueObject(new VisibleIShape(sphere1, silver));
-	//scene.addOpaqueObject(new VisibleIShape(plane, tin));
-	//scene.addOpaqueObject(new VisibleIShape(sphere2, bronze));
-	//scene.addOpaqueObject(new VisibleIShape(ellipsoid, redPlastic));
-	//scene.addOpaqueObject(new VisibleIShape(disk, cyanPlastic));
-
-
-	// loop to make 5 spheres
-	for (int i = 0; i < 5; i++) {
-		double x = 0.0;
-		double y = 0.0;
-		double z = 0.0;
-		ISphere* sphere = new ISphere(dvec3(x, y, z), 1.0);
-		scene.addOpaqueObject(new VisibleIShape(sphere, redPlastic));
-		x += 2.0;
-		y += 2.0;
-		z += 2.0;
-	}
+	scene.addOpaqueObject(new VisibleIShape(plane, greenPlastic));
+    scene.addOpaqueObject(new VisibleIShape(cone1, ruby));
+    scene.addOpaqueObject(new VisibleIShape(cone2, turquoise));
+    scene.addOpaqueObject(new VisibleIShape(cyl, yellowRubber));
+    // add light
 	scene.addLight(lights[0]);
+    scene.addLight(lights[1]);
+    scene.addLight(lights[2]);
+    scene.addLight(lights[3]);
+    
 }
 
 

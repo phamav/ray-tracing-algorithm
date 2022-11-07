@@ -198,6 +198,18 @@ struct IConeY : public ICone {
 };
 
 /**
+ * @struct ICone
+ * @brief similar to IConeY, but has a cap.
+ * Parameters to the constructor should mirror IConeY
+ */
+struct IClosedConeY : public IConeY {
+    IClosedConeY(const dvec3& position, double rad, double H);
+    virtual void findClosestIntersection(const Ray& ray, HitRecord& hit) const;
+protected:
+    IDisk cap;
+};
+
+/**
  * @struct	ICylinderY
  * @brief	Implicit representation of open cylinder oriented along y-axis coordinate.
  */

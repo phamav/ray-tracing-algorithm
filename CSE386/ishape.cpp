@@ -10,7 +10,6 @@
 #include <vector>
 #include "ishape.h"
 #include "io.h"
-
  /**
   * @fn	IShape::IShape()
   * @brief	Constructs a default IShape, centered at the origin.
@@ -729,15 +728,58 @@ void IConeY::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
 	}
 	else {
 		hit = hits[0];
-        hit.interceptPt = ray.getPoint(hit.t);
-		if (hit.interceptPt.y >= center.y || hit.interceptPt.x > (radius * 0.5)) {
+		if (hit.interceptPt.y <= (center.y - height) || hit.interceptPt.y >= center.y) {
 			hit = hits[1];
-            hit.interceptPt = ray.getPoint(hit.t);
-            if (hit.interceptPt.y >= center.y || hit.interceptPt.x > (radius * 0.5)) {
+            if (hit.interceptPt.y <= (center.y - height) || hit.interceptPt.y >= center.y) {
 				hit.t = FLT_MAX;
 			}
 		}
 	}
+}
+
+/**
+ * @fn IClosedConeY::IClosedConeY()
+ * @brief constructor for default IClosedConeY
+ */
+IClosedConeY::IClosedConeY(const dvec3& position, double rad, double H)
+    : IConeY(position, rad, H),
+    cap(dvec3(position.x, position.y - H, position.z), dvec3(0, -1, 0), rad) {
+}
+
+/**
+ * @fn    void ICone::findClosestIntersection(const Ray &ray, HitRecord &hit) const
+ * @brief    Searches for the nearest intersection
+ * @param               ray    The ray.
+ * @param [in,out]    hit    The hit.
+ */
+
+/**
+ * @fn  void IClosedConeY::findClosestIntersection(const Ray& ray, HitRecord& hit) const
+ * @brief Searches for the nearest intersection
+ * @param ray The ray
+ * @param hit The hit
+ */
+void IClosedConeY::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
+    HitRecord coneHit;
+    HitRecord capHit;
+    // Now call findClosestIntersection() for the cone's parent class
+    // and call findClosestIntersection() for the cap.
+    IConeY::findClosestIntersection(ray, coneHit);
+    cap.findClosestIntersection(ray, capHit);
+    // Use the two hit records to figure out which part was hit, if any,
+    // if any, should be rendered.
+    if (coneHit.t == FLT_MAX) {
+        if (capHit.t == FLT_MAX) {
+            hit.t = FLT_MAX;
+        }
+    } else {
+        if (capHit.t == FLT_MAX) {
+            hit.t = FLT_MAX;
+        } else {
+            if (coneHit.t <= capHit.t) hit = coneHit;
+            else hit = capHit;
+        }
+    }
 }
 
 /**
@@ -777,10 +819,8 @@ void ICylinderY::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
     }
     else {
         hit = hits[0];
-        hit.interceptPt = ray.getPoint(hit.t);
         if (std::abs(hit.interceptPt.y - center.y) > (0.5 * length)) {
             hit = hits[1];
-            hit.interceptPt = ray.getPoint(hit.t);
             if (std::abs(hit.interceptPt.y - center.y) > (0.5 * length)) {
                 hit.t = FLT_MAX;
             }

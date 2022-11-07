@@ -134,16 +134,13 @@ color PositionalLight::illuminate(const dvec3& interceptWorldCoords,
     // (3 pt) If the light is off (i.e., not on), return black.
     if (!isOn) {
         return black;
+    } else {
+        if (inShadow) {
+            return ambientColor(material.ambient, lightColor);
+        } else {
+            return totalColor(material, lightColor, glm::normalize(eyeFrame.origin - interceptWorldCoords), normal, pos, interceptWorldCoords, attenuationIsTurnedOn, atParams);
+        }
     }
-    // (3 pt) If light is on and is in shadow, return only the ambient contribution.
-    if (isOn && inShadow) {
-        return ambientColor(material.ambient, lightColor);
-    }
-    // (3 pts) If light is on and not in shadow, return the value computed by totalColor.
-    if (isOn && !inShadow) {
-        return totalColor(material, lightColor, glm::normalize(eyeFrame.origin - interceptWorldCoords), normal, pos, interceptWorldCoords, attenuationIsTurnedOn, atParams);
-    }
-    return white;
 }
 
 /*
