@@ -27,7 +27,7 @@
 		517600C8257EA7E900DD37C4 /* blackbuck.ppm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 517600C7257EA7E900DD37C4 /* blackbuck.ppm */; };
 		517600CA257EA7EF00DD37C4 /* snail.ppm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5176007E257E9F3700DD37C4 /* snail.ppm */; };
 		C54011D9291951C0008033EF /* raytracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C54011D8291951C0008033EF /* raytracer.cpp */; };
-		C54011DD29195C4B008033EF /* exercisecappedcone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C54011DC29195C4B008033EF /* exercisecappedcone.cpp */; };
+		C56238BC291BE812002F9FFA /* exercisetextures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56238BB291BE812002F9FFA /* exercisetextures.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -104,11 +104,11 @@
 		5176008B257E9F3700DD37C4 /* colorandmaterials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colorandmaterials.h; sourceTree = "<group>"; };
 		5176008C257E9F3700DD37C4 /* fragmentops.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fragmentops.h; sourceTree = "<group>"; };
 		5176008F257E9F3800DD37C4 /* vertexops.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexops.cpp; sourceTree = "<group>"; };
-		517600C4257EA7B000DD37C4 /* usflag.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; name = usflag.ppm; path = CSE386/usflag.ppm; sourceTree = "<group>"; };
-		517600C7257EA7E900DD37C4 /* blackbuck.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; name = blackbuck.ppm; path = CSE386/blackbuck.ppm; sourceTree = "<group>"; };
+		517600C4257EA7B000DD37C4 /* usflag.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; path = usflag.ppm; sourceTree = "<group>"; };
+		517600C7257EA7E900DD37C4 /* blackbuck.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = blackbuck.ppm; sourceTree = "<group>"; };
 		51AECD9824B4142F00BC4B16 /* CSE386 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CSE386; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54011D8291951C0008033EF /* raytracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = raytracer.cpp; sourceTree = "<group>"; };
-		C54011DC29195C4B008033EF /* exercisecappedcone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exercisecappedcone.cpp; sourceTree = "<group>"; };
+		C56238BB291BE812002F9FFA /* exercisetextures.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exercisetextures.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,8 +134,6 @@
 		51AECD8F24B4142F00BC4B16 = {
 			isa = PBXGroup;
 			children = (
-				517600C7257EA7E900DD37C4 /* blackbuck.ppm */,
-				517600C4257EA7B000DD37C4 /* usflag.ppm */,
 				51AECD9A24B4142F00BC4B16 /* CSE386 */,
 				51AECD9924B4142F00BC4B16 /* Products */,
 				5175878A24B428FA002E29F2 /* Frameworks */,
@@ -154,7 +152,9 @@
 		51AECD9A24B4142F00BC4B16 /* CSE386 */ = {
 			isa = PBXGroup;
 			children = (
-				C54011DC29195C4B008033EF /* exercisecappedcone.cpp */,
+				517600C7257EA7E900DD37C4 /* blackbuck.ppm */,
+				517600C4257EA7B000DD37C4 /* usflag.ppm */,
+				C56238BB291BE812002F9FFA /* exercisetextures.cpp */,
 				C54011D8291951C0008033EF /* raytracer.cpp */,
 				5176006A257E9F3600DD37C4 /* camera.cpp */,
 				51760052257E9F3500DD37C4 /* camera.h */,
@@ -265,7 +265,7 @@
 				5176009F257E9F3800DD37C4 /* colorandmaterials.cpp in Sources */,
 				517600B1257E9F3800DD37C4 /* utilities.cpp in Sources */,
 				517600AB257E9F3800DD37C4 /* eshape.cpp in Sources */,
-				C54011DD29195C4B008033EF /* exercisecappedcone.cpp in Sources */,
+				C56238BC291BE812002F9FFA /* exercisetextures.cpp in Sources */,
 				5176009C257E9F3800DD37C4 /* io.cpp in Sources */,
 				517600AE257E9F3800DD37C4 /* defs.cpp in Sources */,
 				517600B3257E9F3800DD37C4 /* fragmentops.cpp in Sources */,

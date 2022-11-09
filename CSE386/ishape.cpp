@@ -70,6 +70,12 @@ void VisibleIShape::findClosestIntersection(const Ray& ray, OpaqueHitRecord& hit
     if (hit.t < FLT_MAX) {
         hit.material = material;
         hit.texture = texture;
+        if (hit.texture != nullptr) {
+            // this function defines how to take a point (x, y, z)
+            // and map it to u and v values for the texture.
+            // passing in the intercept pt and function sets u and v
+            shape->getTexCoords(hit.interceptPt, hit.u, hit.v);
+        }
     }
 
 }

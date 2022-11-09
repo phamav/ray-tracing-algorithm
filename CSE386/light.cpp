@@ -42,6 +42,8 @@ color ambientColor(const color& matAmbient, const color& lightColor) {
 color diffuseColor(const color& matDiffuse, const color& lightColor,
 	const dvec3& l, const dvec3& n) {
 	/* CSE 386 - todo  */
+    glm::normalize(l);
+    glm::normalize(n);
 	return lightColor * matDiffuse * std::max(0.0, glm::dot(l, n));
 
 }
@@ -62,6 +64,8 @@ color specularColor(const color& matSpecular, const color& lightColor,
 	double shininess,
 	const dvec3& r, const dvec3& v) {
 	/* CSE 386 - todo  */
+    glm::normalize(r);
+    glm::normalize(v);
     double max = std::max(0.0, glm::dot(r, v));
 	return lightColor * matSpecular * glm::pow(max, shininess);
 }
@@ -91,6 +95,7 @@ color totalColor(const Material& mat, const color& lightColor,
     // calculate light and reflection vector
     dvec3 l = glm::normalize(lightPos - intersectionPt);
     dvec3 r = glm::normalize(2 * glm::dot(l, n) * n - l);
+    glm::normalize(v);
     // calculate ambient, diffuse, and specular color
     color ambient = ambientColor(mat.ambient, lightColor);
     color diffuse = diffuseColor(mat.diffuse, lightColor, l, n);

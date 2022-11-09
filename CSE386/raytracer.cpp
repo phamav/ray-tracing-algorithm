@@ -44,27 +44,33 @@ void RayTracer::raytraceScene(FrameBuffer& frameBuffer, int depth,
 			Ray ray = camera.getRay(x, y); // get the rayfor the pixel at (x, y)
 			OpaqueHitRecord theHit;
 			VisibleIShape::findIntersection(ray, theScene.opaqueObjs, theHit);
-
-			// color based on the shape we hit
-			color c;
-            // call illuminate
-            // add lights
-            // clip colors
-            for (PositionalLightPtr light : lights) {
-                if (theHit.t != FLT_MAX) {
-                    bool shadow = light->pointIsInAShadow(theHit.interceptPt, theHit.normal, objs, camera.getFrame());
-                    c += light->illuminate(theHit.interceptPt, theHit.normal, theHit.material, camera.getFrame(), shadow);
-                } else {
-                    c += defaultColor;
+            // If there's a texture, get the color from it.
+            if (theHit.texture != nullptr) {
+                color texel = theHit.texture->getPixelUV(theHit.u, theHit.v);
+                frameBuffer.setColor(x, y, texel);
+            } else {
+                // compute color in the usual way
+                // color based on the shape we hit
+                color c;
+                // call illuminate
+                // add lights
+                // clip colors
+                for (PositionalLightPtr light : lights) {
+                    if (theHit.t != FLT_MAX) {
+                        bool shadow = light->pointIsInAShadow(theHit.interceptPt, theHit.normal, objs, camera.getFrame());
+                        c += light->PositionalLight::illuminate(theHit.interceptPt, theHit.normal, theHit.material, camera.getFrame(), shadow);
+                    } else {
+                        c += defaultColor;
+                    }
                 }
+                
+                c.r = std::max(0.0, std::min(c.r, 1.0));
+                c.g = std::max(0.0, std::min(c.g, 1.0));
+                c.b = std::max(0.0, std::min(c.b, 1.0));
+                
+                frameBuffer.setColor(x, y, c);
+                frameBuffer.showAxes(x, y, ray, 0.25);			// Displays R/x, G/y, B/z axes
             }
-            
-            c.r = std::max(0.0, std::min(c.r, 1.0));
-            c.g = std::max(0.0, std::min(c.g, 1.0));
-            c.b = std::max(0.0, std::min(c.b, 1.0));
-            
-			frameBuffer.setColor(x, y, c);
-			frameBuffer.showAxes(x, y, ray, 0.25);			// Displays R/x, G/y, B/z axes
 		}
 	}
 
