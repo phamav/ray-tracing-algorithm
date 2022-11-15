@@ -181,18 +181,15 @@ IDisk::IDisk(const dvec3& pos, const dvec3& normal, double rad)
 
 void IDisk::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
 	/* CSE 386 - todo  */
-	hit.t = glm::dot((center - ray.origin), n) / glm::dot(ray.dir, n);
-	if (hit.t < 0 || isOrthogonal(ray.dir, n)) hit = HitRecord();
-	else {
-		hit.interceptPt = ray.getPoint(hit.t);
-		double dist = glm::distance(hit.interceptPt, center);
-		if (sqrt(dist) <= radius) {
-			hit.normal = n;
-		} else {
-			hit.t = FLT_MAX;
-			hit.normal = n;
-		}
-	}
+    IPlane p(center, n);
+    p.findClosestIntersection(ray, hit);
+    if (hit.t == FLT_MAX) {
+        return;
+    } else {
+        if (glm::length(hit.interceptPt - center) > radius) {
+            hit.t = FLT_MAX;
+        }
+    }
 }
 
 /**
@@ -774,17 +771,11 @@ void IClosedConeY::findClosestIntersection(const Ray& ray, HitRecord& hit) const
     cap.findClosestIntersection(ray, capHit);
     // Use the two hit records to figure out which part was hit, if any,
     // if any, should be rendered.
-    if (coneHit.t == FLT_MAX) {
-        if (capHit.t == FLT_MAX) {
-            hit.t = FLT_MAX;
-        }
+    if (coneHit.t == FLT_MAX && capHit.t == FLT_MAX) {
+        hit.t = FLT_MAX;
     } else {
-        if (capHit.t == FLT_MAX) {
-            hit.t = FLT_MAX;
-        } else {
-            if (coneHit.t <= capHit.t) hit = coneHit;
-            else hit = capHit;
-        }
+        if (coneHit.t < capHit.t) hit = coneHit;
+        else hit = capHit;
     }
 }
 
@@ -825,9 +816,9 @@ void ICylinderY::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
     }
     else {
         hit = hits[0];
-        if (std::abs(hit.interceptPt.y - center.y) > (0.5 * length)) {
+        if (std::abs(hit.interceptPt.y - center.y) >= (0.5 * length)) {
             hit = hits[1];
-            if (std::abs(hit.interceptPt.y - center.y) > (0.5 * length)) {
+            if (std::abs(hit.interceptPt.y - center.y) >= (0.5 * length)) {
                 hit.t = FLT_MAX;
             }
         }

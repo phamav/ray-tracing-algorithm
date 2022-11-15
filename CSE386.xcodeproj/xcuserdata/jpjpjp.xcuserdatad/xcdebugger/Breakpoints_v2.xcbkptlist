@@ -14,8 +14,8 @@
             filePath = "CSE386/raytracer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "RayTracer::raytraceScene(frameBuffer, depth, theScene)"
             landmarkType = "7">
          </BreakpointContent>
