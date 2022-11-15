@@ -27,6 +27,7 @@
 		517600C8257EA7E900DD37C4 /* blackbuck.ppm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 517600C7257EA7E900DD37C4 /* blackbuck.ppm */; };
 		517600CA257EA7EF00DD37C4 /* snail.ppm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5176007E257E9F3700DD37C4 /* snail.ppm */; };
 		C54011D9291951C0008033EF /* raytracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C54011D8291951C0008033EF /* raytracer.cpp */; };
+		C59EE065292423BD008B5687 /* exercisetextures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C59EE064292423BD008B5687 /* exercisetextures.cpp */; };
 		C5E62AD02922C9870078D2D2 /* fullraytrace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5E62ACF2922C9870078D2D2 /* fullraytrace.cpp */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +109,7 @@
 		517600C7257EA7E900DD37C4 /* blackbuck.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = blackbuck.ppm; sourceTree = "<group>"; };
 		51AECD9824B4142F00BC4B16 /* CSE386 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CSE386; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54011D8291951C0008033EF /* raytracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = raytracer.cpp; sourceTree = "<group>"; };
+		C59EE064292423BD008B5687 /* exercisetextures.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exercisetextures.cpp; sourceTree = "<group>"; };
 		C5E62ACF2922C9870078D2D2 /* fullraytrace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fullraytrace.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,6 +154,7 @@
 		51AECD9A24B4142F00BC4B16 /* CSE386 */ = {
 			isa = PBXGroup;
 			children = (
+				C59EE064292423BD008B5687 /* exercisetextures.cpp */,
 				C5E62ACF2922C9870078D2D2 /* fullraytrace.cpp */,
 				517600C7257EA7E900DD37C4 /* blackbuck.ppm */,
 				517600C4257EA7B000DD37C4 /* usflag.ppm */,
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				517600AA257E9F3800DD37C4 /* light.cpp in Sources */,
+				C59EE065292423BD008B5687 /* exercisetextures.cpp in Sources */,
 				517600A1257E9F3800DD37C4 /* image.cpp in Sources */,
 				517600B6257E9F3800DD37C4 /* ishape.cpp in Sources */,
 				C5E62AD02922C9870078D2D2 /* fullraytrace.cpp in Sources */,

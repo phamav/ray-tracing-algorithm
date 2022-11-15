@@ -222,6 +222,18 @@ struct ICylinderY : public ICylinder {
 };
 
 /**
+ * @struct    ICylinderZ
+ * @brief    Implicit representation of open cylinder oriented along z-axis coordinate.
+ */
+
+struct ICylinderZ : public ICylinder {
+    ICylinderZ();
+    ICylinderZ(const dvec3& position, double R, double len);
+    virtual void findClosestIntersection(const Ray& ray, HitRecord& hit) const;
+    void getTexCoords(const dvec3& pt, double& u, double& v) const;
+};
+
+/**
  * @struct	IEllipsoid
  * @brief	Implicit representation of an ellipsoid.
  */

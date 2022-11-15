@@ -64,7 +64,6 @@ VisibleIShape::VisibleIShape(IShapePtr shapePtr, const Material& mat, Image* ima
  */
 
 void VisibleIShape::findClosestIntersection(const Ray& ray, OpaqueHitRecord& hit) const {
-	/* 386 - todo */
     shape->findClosestIntersection(ray, hit);
 
     if (hit.t < FLT_MAX) {
@@ -90,7 +89,6 @@ void VisibleIShape::findClosestIntersection(const Ray& ray, OpaqueHitRecord& hit
 
 void VisibleIShape::findIntersection(const Ray& ray, const vector<VisibleIShapePtr>& surfaces,
 	OpaqueHitRecord& theHit) {
-	/* CSE 386 - todo  */
 	// loop thru all the shapes in surfaces to find the one with the smallest t value. 
 	// then set the hit to the info about that shape
 	theHit.t = FLT_MAX;
@@ -180,7 +178,6 @@ IDisk::IDisk(const dvec3& pos, const dvec3& normal, double rad)
  */
 
 void IDisk::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
-	/* CSE 386 - todo  */
     IPlane p(center, n);
     p.findClosestIntersection(ray, hit);
     if (hit.t == FLT_MAX) {
@@ -415,7 +412,6 @@ bool IPlane::onFrontSide(const dvec3& point) const {
  */
 
 void IPlane::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
-	/* CSE 386 - todo  */
 	hit.t = glm::dot((a - ray.origin), n) / glm::dot(ray.dir, n);
 	if (hit.t < 0 || isOrthogonal(ray.dir, n)) hit = HitRecord();
 	else {
@@ -675,20 +671,6 @@ dvec3 IQuadricSurface::normal(const dvec3& P) const {
 }
 
 /**
- * @fn	ICylinder::ICylinder(const dvec3 &pos, double R, double L, const QuadricParameters &qParams)
- * @brief	Constructs an implicit representation of a cylinder.
- * @param	pos	   	The position.
- * @param	R	   	Radius.
- * @param	L	   	Length of cylinder.
- * @param	qParams	Quadric parameters.
- */
-
-ICylinder::ICylinder(const dvec3& pos, double R, double L,
-	const QuadricParameters& qParams)
-	: IQuadricSurface(qParams, pos), radius(R), length(L) {
-}
-
-/**
  * @fn	ICone::ICone(const dvec3 &pos, double R, double H, const QuadricParameters &qParams)
  * @brief	Constructs an implicit representation of a cylinder.
  * @param	pos	   	The position.
@@ -750,13 +732,6 @@ IClosedConeY::IClosedConeY(const dvec3& position, double rad, double H)
 }
 
 /**
- * @fn    void ICone::findClosestIntersection(const Ray &ray, HitRecord &hit) const
- * @brief    Searches for the nearest intersection
- * @param               ray    The ray.
- * @param [in,out]    hit    The hit.
- */
-
-/**
  * @fn  void IClosedConeY::findClosestIntersection(const Ray& ray, HitRecord& hit) const
  * @brief Searches for the nearest intersection
  * @param ray The ray
@@ -777,6 +752,20 @@ void IClosedConeY::findClosestIntersection(const Ray& ray, HitRecord& hit) const
         if (coneHit.t < capHit.t) hit = coneHit;
         else hit = capHit;
     }
+}
+
+/**
+ * @fn    ICylinder::ICylinder(const dvec3 &pos, double R, double L, const QuadricParameters &qParams)
+ * @brief    Constructs an implicit representation of a cylinder.
+ * @param    pos           The position.
+ * @param    R           Radius.
+ * @param    L           Length of cylinder.
+ * @param    qParams    Quadric parameters.
+ */
+
+ICylinder::ICylinder(const dvec3& pos, double R, double L,
+    const QuadricParameters& qParams)
+    : IQuadricSurface(qParams, pos), radius(R), length(L) {
 }
 
 /**
@@ -836,6 +825,65 @@ void ICylinderY::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
 void ICylinderY::getTexCoords(const dvec3& pt, double& u, double& v) const {
 	/* CSE 386 - todo  */
 	u = v = 0.0;
+}
+
+/**
+ * @fn    ICylinderZ::ICylinderZ()
+ * @brief    Constructor for default ICylinderZ
+ */
+
+ICylinderZ::ICylinderZ()
+    : ICylinder(ORIGIN3D, 1.0, 1.0, QuadricParameters::cylinderYQParams(1.0)) {
+}
+
+/**
+ * @fn    ICylinderZ::ICylinderZ(const dvec3 &pos, double rad, double len)
+ * @brief    Constructor
+ * @param    pos    The position.
+ * @param    rad    The radians.
+ * @param    len    The length.
+ */
+
+ICylinderZ::ICylinderZ(const dvec3& pos, double rad, double len)
+    : ICylinder(pos, rad, len, QuadricParameters::cylinderYQParams(rad)) {
+}
+
+/**
+ * @fn    void ICylinderZ::findClosestIntersection(const Ray &ray, HitRecord &hit) const
+ * @brief    Searches for the nearest intersection
+ * @param               ray    The ray.
+ * @param [in,out]    hit    The hit.
+ */
+
+void ICylinderZ::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
+    static HitRecord hits[2];
+    int numHits = IQuadricSurface::findIntersections(ray, hits);
+
+    if (numHits == 0) {
+        hit.t = FLT_MAX;
+    }
+    else {
+        hit = hits[0];
+        if (std::abs(hit.interceptPt.y - center.y) >= (0.5 * length)) {
+            hit = hits[1];
+            if (std::abs(hit.interceptPt.y - center.y) >= (0.5 * length)) {
+                hit.t = FLT_MAX;
+            }
+        }
+    }
+}
+
+/**
+* @fn    void ICylinderZ::getTexCoords(const dvec3 &pt, double &u, double &v) const
+* @brief    Gets tex coordinates
+* @param               pt    The point.
+* @param [in,out]    u     Tex coordinate u.
+* @param [in,out]    v     Tex coordinate v.
+*/
+
+void ICylinderZ::getTexCoords(const dvec3& pt, double& u, double& v) const {
+    /* CSE 386 - todo  */
+    u = v = 0.0;
 }
 
 /**
