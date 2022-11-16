@@ -183,6 +183,7 @@
     <ClCompile Include="iscene.cpp" />
     <ClCompile Include="ishape.cpp" />
     <ClCompile Include="light.cpp" />
+    <ClCompile Include="matrixops.cpp" />
     <ClCompile Include="rasterization.cpp" />
     <ClCompile Include="raytracer.cpp" />
     <ClCompile Include="utilities.cpp" />

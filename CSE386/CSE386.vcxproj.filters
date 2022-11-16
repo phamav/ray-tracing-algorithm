@@ -137,5 +137,8 @@
     <ClCompile Include="exercisetextures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="matrixops.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

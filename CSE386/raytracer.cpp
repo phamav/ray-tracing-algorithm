@@ -58,7 +58,7 @@ void RayTracer::raytraceScene(FrameBuffer& frameBuffer, int depth,
                         frameBuffer.setColor(x, y, texel);
                     } else {
                         bool shadow = light->pointIsInAShadow(theHit.interceptPt, theHit.normal, objs, camera.getFrame());
-                        c += light->PositionalLight::illuminate(theHit.interceptPt, theHit.normal, theHit.material, camera.getFrame(), false);
+                        c += light->PositionalLight::illuminate(theHit.interceptPt, theHit.normal, theHit.material, camera.getFrame(), shadow);
                         frameBuffer.setColor(x, y, c);
                     }
                 } else {
