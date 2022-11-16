@@ -174,7 +174,32 @@ bool PositionalLight::pointIsInAShadow(const dvec3& intercept,
 	const vector<VisibleIShapePtr>& objects,
 	const Frame& eyeFrame) const {
 	/* CSE 386 - todo  */
-	return false;
+	// Intersection point i is determined
+	dvec3 interceptPt(intercept + normal * EPSILON);
+	// Determine distance to the light source
+	double distToLight = std::abs(glm::length(pos - interceptPt));
+	// Construct shadow feeler 
+	Ray shadowFeeler = getShadowFeeler(interceptPt, normal, eyeFrame);
+	// Check the shadow feeler for intersection (i) with against objects
+	// in the scene to find the first object it hits, if any. 
+	OpaqueHitRecord hit;
+	VisibleIShape::findIntersection(shadowFeeler, objects, hit);
+	// Compare the distance to the intersection (i) to the distance to 
+	// the light source (if we are using normalized vectors, then hit.t is the dist)
+	if (hit.t != FLT_MAX) {
+		double distToInterceptPt = std::abs(glm::length(hit.interceptPt - interceptPt));
+		if (distToInterceptPt < distToLight) {
+			illuminate(hit.interceptPt, hit.normal, hit.material, eyeFrame, true);
+			return true;
+		}
+		else {
+			illuminate(hit.interceptPt, hit.normal, hit.material, eyeFrame, false);
+			return false;
+		}
+	}
+	else {
+		return false;
+	}
 }
 
 /**
@@ -189,9 +214,9 @@ Ray PositionalLight::getShadowFeeler(const dvec3& interceptWorldCoords,
 	const dvec3& normal,
 	const Frame& eyeFrame) const {
 	/* 386 - todo */
-	dvec3 origin(0, 0, 0);
-	dvec3 dir(1, 1, 1);
-	Ray shadowFeeler(origin, dir);
+	dvec3 l(pos - interceptWorldCoords);
+	glm::normalize(l);
+	Ray shadowFeeler(interceptWorldCoords, l); // origin = i, direction = l;
 	return shadowFeeler;
 }
 
