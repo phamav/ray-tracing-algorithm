@@ -172,11 +172,12 @@
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="colorandmaterials.cpp" />
-    <ClCompile Include="colortests.cpp" />
     <ClCompile Include="defs.cpp" />
     <ClCompile Include="eshape.cpp" />
+    <ClCompile Include="exercisetextures.cpp" />
     <ClCompile Include="fragmentops.cpp" />
     <ClCompile Include="framebuffer.cpp" />
+    <ClCompile Include="fullraytrace.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="io.cpp" />
     <ClCompile Include="iscene.cpp" />

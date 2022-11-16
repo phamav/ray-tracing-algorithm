@@ -41,7 +41,7 @@ void IShape::getTexCoords(const dvec3& pt, double& u, double& v) const {
 
 dvec3 IShape::movePointOffSurface(const dvec3& pt, const dvec3& n) {
 	/* CSE 386 - todo  */
-	return pt;
+	return pt + n * EPSILON;
 }
 
 /**
@@ -833,7 +833,7 @@ void ICylinderY::getTexCoords(const dvec3& pt, double& u, double& v) const {
  */
 
 ICylinderZ::ICylinderZ()
-    : ICylinder(ORIGIN3D, 1.0, 1.0, QuadricParameters::cylinderYQParams(1.0)) {
+    : ICylinder(ORIGIN3D, 1.0, 1.0, QuadricParameters::cylinderZQParams(1.0)) {
 }
 
 /**
@@ -845,7 +845,7 @@ ICylinderZ::ICylinderZ()
  */
 
 ICylinderZ::ICylinderZ(const dvec3& pos, double rad, double len)
-    : ICylinder(pos, rad, len, QuadricParameters::cylinderYQParams(rad)) {
+    : ICylinder(pos, rad, len, QuadricParameters::cylinderZQParams(rad)) {
 }
 
 /**
@@ -864,9 +864,9 @@ void ICylinderZ::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
     }
     else {
         hit = hits[0];
-        if (std::abs(hit.interceptPt.y - center.y) >= (0.5 * length)) {
+        if (std::abs(hit.interceptPt.z - center.z) >= (0.5 * length)) {
             hit = hits[1];
-            if (std::abs(hit.interceptPt.y - center.y) >= (0.5 * length)) {
+            if (std::abs(hit.interceptPt.z - center.z) >= (0.5 * length)) {
                 hit.t = FLT_MAX;
             }
         }

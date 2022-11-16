@@ -131,7 +131,10 @@
     <ClCompile Include="vertextdata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="colortests.cpp">
+    <ClCompile Include="fullraytrace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="exercisetextures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
