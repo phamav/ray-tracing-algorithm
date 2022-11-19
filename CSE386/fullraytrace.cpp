@@ -72,10 +72,10 @@ void resize(int width, int height) {
 
 IPlane* plane = new IPlane(dvec3(0.0, -2.0, 0.0), dvec3(0.0, 1.0, 0.0));
 IPlane* clearPlane = new IPlane(dvec3(0.0, 0.0, 0.0), dvec3(0.0, 0.0, 1.0));
-ISphere* sphere1 = new ISphere(dvec3(-10.0, 0.0, 8.0), 4.0);
-IClosedConeY* closedCone = new IClosedConeY(dvec3(0.0, 8.0, 0.0), 2.0, 1.0);
+ISphere* sphere1 = new ISphere(dvec3(-10.0, 0.0, 8.0), 3.0);
+IClosedConeY* closedCone = new IClosedConeY(dvec3(0.0, 7.0, 0.0), 2.0, 1.0);
 ICylinderY* cylinderY = new ICylinderY(dvec3(-3.0, 3.0, 2.0), 2.0, 5.0);
-ICylinderZ* cylinderZ = new ICylinderZ(dvec3(4.0, 3.0, -2.0), 2.0, 5.0);
+ICylinderZ* cylinderZ = new ICylinderZ(dvec3(4.0, 3.0, -2.0), 2.0, 3.0);
 
 void buildScene() {
 	scene.addOpaqueObject(new VisibleIShape(plane, tin));

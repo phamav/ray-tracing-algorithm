@@ -175,31 +175,23 @@ bool PositionalLight::pointIsInAShadow(const dvec3& intercept,
 	const Frame& eyeFrame) const {
 	/* CSE 386 - todo  */
 	// Intersection point i is determined
-	intercept(intercept + normal * EPSILON);
-	// Determine distance to the light source
-	double distToLight = std::abs(glm::length(pos - intercept));
+	dvec3 i(intercept + normal * EPSILON);
+	// Determine distance from i to the light source
+	double distToLight = glm::distance(pos, i);
 	// Construct shadow feeler 
-	Ray shadowFeeler = getShadowFeeler(intercept, normal, eyeFrame);
+	Ray shadowFeeler = getShadowFeeler(i, normal, eyeFrame);
 	// Check the shadow feeler for intersection (i) with against objects
 	// in the scene to find the first object it hits, if any. 
 	OpaqueHitRecord hit;
 	VisibleIShape::findIntersection(shadowFeeler, objects, hit);
 	// Compare the distance to the intersection (i) to the distance to 
 	// the light source (if we are using normalized vectors, then hit.t is the dist)
-	if (hit.t != FLT_MAX) {
-		double distToInterceptPt = std::abs(glm::length(hit.interceptPt - intercept));
-		if (distToInterceptPt < distToLight) {
-			illuminate(hit.interceptPt, hit.normal, hit.material, eyeFrame, true);
-			return true;
-		}
-		else {
-			illuminate(hit.interceptPt, hit.normal, hit.material, eyeFrame, false);
-			return false;
-		}
+	if (hit.t < distToLight && !approximatelyEqual(hit.t, distToLight)) {
+		illuminate(hit.interceptPt, hit.normal, hit.material, eyeFrame, true);
+		return true;
 	}
-	else {
-		return false;
-	}
+
+	return false;
 }
 
 /**
@@ -213,11 +205,7 @@ bool PositionalLight::pointIsInAShadow(const dvec3& intercept,
 Ray PositionalLight::getShadowFeeler(const dvec3& interceptWorldCoords,
 	const dvec3& normal,
 	const Frame& eyeFrame) const {
-	/* 386 - todo */
-	dvec3 l(pos - interceptWorldCoords);
-	glm::normalize(l);
-	Ray shadowFeeler(interceptWorldCoords, l); // origin = i, direction = l;
-	return shadowFeeler;
+	return Ray(interceptWorldCoords, glm::normalize(pos - interceptWorldCoords));
 }
 
 /**
@@ -239,7 +227,11 @@ color SpotLight::illuminate(const dvec3& interceptWorldCoords,
 	const Frame& eyeFrame,
 	bool inShadow) const {
 	/* CSE 386 - todo  */
-	return material.diffuse;
+	if (isInSpotlightCone(pos, spotDir, fov, interceptWorldCoords)) {
+		PositionalLight::illuminate(interceptWorldCoords, normal, material, eyeFrame, inShadow);
+	}
+	
+	return black;
 }
 
 /**
@@ -268,5 +260,14 @@ bool SpotLight::isInSpotlightCone(const dvec3& spotPos,
 	double spotFOV,
 	const dvec3& intercept) {
 	/* CSE 386 - todo  */
+	dvec3 l(glm::normalize(intercept - spotPos));
+	double spotCosine = glm::dot(-l, glm::normalize(spotDir));
+	// cos smaller for larger acute angles
+	// if spotCos is larger than the halfCos, point is in spotlight
+	double cutoffCosine = glm::cos(spotFOV / 2.0);
+	if (spotCosine > cutoffCosine) {
+		return true;
+	}
+
 	return false;
 }
