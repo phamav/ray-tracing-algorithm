@@ -42,34 +42,11 @@ void RayTracer::raytraceScene(FrameBuffer& frameBuffer, int depth,
 			}
 			/* CSE 386 - todo  */
 			Ray ray = camera.getRay(x, y); // get the rayfor the pixel at (x, y)
-			OpaqueHitRecord theHit;
-			VisibleIShape::findIntersection(ray, theScene.opaqueObjs, theHit);
-            // If there's a texture, get the color from it.
-            // compute color in the usual way
-            // color based on the shape we hit
-            color c;
-            // call illuminate
-            // add lights
-            // clip colors
-            for (PositionalLightPtr light : lights) {
-                if (theHit.t != FLT_MAX) {
-                    if (theHit.texture != nullptr) {
-                        color texel = theHit.texture->getPixelUV(theHit.u, theHit.v);
-                        frameBuffer.setColor(x, y, texel);
-                    } else {
-                        bool shadow = light->pointIsInAShadow(theHit.interceptPt, theHit.normal, objs, camera.getFrame());
-                        c += light->PositionalLight::illuminate(theHit.interceptPt, theHit.normal, theHit.material, camera.getFrame(), shadow);
-                        frameBuffer.setColor(x, y, c);
-                    }
-                } else {
-                    c += defaultColor;
-                }
-            }
-                
+            color c = traceIndividualRay(ray, theScene, depth + 1);
             c.r = std::max(0.0, std::min(c.r, 1.0));
             c.g = std::max(0.0, std::min(c.g, 1.0));
             c.b = std::max(0.0, std::min(c.b, 1.0));
-
+            frameBuffer.setColor(x, y, c);
             frameBuffer.showAxes(x, y, ray, 0.25);			// Displays R/x, G/y, B/z axes
         }
 	}
@@ -91,6 +68,48 @@ void RayTracer::raytraceScene(FrameBuffer& frameBuffer, int depth,
 color RayTracer::traceIndividualRay(const Ray& ray, const IScene& theScene, int recursionLevel) const {
 	/* CSE 386 - todo  */
 	// This might be a useful helper function.
-    recursionLevel = 0;
-	return black;
+    OpaqueHitRecord theHit;
+    VisibleIShape::findIntersection(ray, theScene.opaqueObjs, theHit);
+    color totalColor = black;
+    // call illuminate
+    // add lights
+    // clip colors
+
+    // base case
+    if (recursionLevel == 0) {
+        return totalColor;
+    }
+    else {
+        recursionLevel--;
+        if (theHit.t != FLT_MAX) {
+            if (recursionLevel > 0) {
+                color newOrigin = IShape::movePointOffSurface(theHit.interceptPt, theHit.normal);
+                color newDir = ray.dir - 2 * (glm::dot(ray.dir, theHit.normal)) * theHit.normal;
+                totalColor += 0.3 * traceIndividualRay(Ray(newOrigin, newDir), theScene, recursionLevel);
+            }
+            
+        }
+        for (PositionalLightPtr light : theScene.lights) {
+            if (theHit.t != FLT_MAX) {
+                if (theHit.texture != nullptr) {
+                    color texel = theHit.texture->getPixelUV(theHit.u, theHit.v);
+                    totalColor = 0.5 * (texel + totalColor);
+                }
+                else {
+                    bool shadow = light->pointIsInAShadow(theHit.interceptPt, theHit.normal, theScene.opaqueObjs, (*theScene.camera).getFrame());
+                    totalColor += light->PositionalLight::illuminate(theHit.interceptPt, theHit.normal, theHit.material, (*theScene.camera).getFrame(), shadow);
+                }
+
+                if (recursionLevel> 0) {
+                    color newOrigin = IShape::movePointOffSurface(theHit.interceptPt, theHit.normal);
+                    color newDir = ray.dir - 2 * (glm::dot(ray.dir, theHit.normal)) * theHit.normal;
+                    totalColor += 0.3 * traceIndividualRay(Ray(newOrigin, newDir), theScene, recursionLevel);
+                }
+            }
+            else {
+                totalColor += defaultColor;
+            }
+        }
+    }
+	return totalColor;
 }
