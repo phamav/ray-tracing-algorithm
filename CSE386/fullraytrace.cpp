@@ -34,15 +34,15 @@ double spotDirZ = 0;
 
 dvec3 cameraPos1(5, 8, 5);
 dvec3 cameraFocus1(0, 5, 0);
-dvec3 cameraUp1 = Y_AXIS;
+dvec3 cameraUp1(Y_AXIS);
 
 double cameraFOV = glm::radians(120.0);
 
 vector<PositionalLightPtr> lights = {
-						new PositionalLight(dvec3(0, 20, 0), white),
-						new SpotLight(dvec3(0, 5, 0),
+						new PositionalLight(dvec3(10, 10, 10), white),
+						new SpotLight(dvec3(0, 20, 0),
 										dvec3(spotDirX,spotDirY,spotDirZ),
-										glm::radians(90.0),
+										glm::radians(20.0),
 										white)
 };
 
@@ -53,16 +53,19 @@ FrameBuffer frameBuffer(WINDOW_WIDTH, WINDOW_HEIGHT);
 RayTracer rayTrace(paleGreen);
 IScene scene;
 
+Image im1("usflag.ppm");
+Image im2("blackbuck.ppm");
+
 void render() {
 	int frameStartTime = glutGet(GLUT_ELAPSED_TIME);
 	int width = frameBuffer.getWindowWidth();
 	int height = frameBuffer.getWindowHeight();
 	scene.camera = new PerspectiveCamera(cameraPos1, cameraFocus1, cameraUp1, cameraFOV, width, height);
-	rayTrace.raytraceScene(frameBuffer, 0, scene);
+	rayTrace.raytraceScene(frameBuffer, numReflections, scene, antiAliasing);
 
-	//int frameEndTime = glutGet(GLUT_ELAPSED_TIME); // Get end time
-	//double totalTimeSec = (frameEndTime - frameStartTime) / 1000.0;
-	//cout << "Render time: " << totalTimeSec << " sec." << endl;
+	int frameEndTime = glutGet(GLUT_ELAPSED_TIME); // Get end time
+	double totalTimeSec = (frameEndTime - frameStartTime) / 1000.0;
+	cout << "Render time: " << totalTimeSec << " sec." << endl;
 }
 
 void resize(int width, int height) {
@@ -80,9 +83,9 @@ ICylinderZ* cylinderZ = new ICylinderZ(dvec3(4.0, 3.0, -2.0), 2.0, 3.0);
 void buildScene() {
 	scene.addOpaqueObject(new VisibleIShape(plane, tin));
 	scene.addTransparentObject(new TransparentIShape(clearPlane, red, 0.25));
-	scene.addOpaqueObject(new VisibleIShape(sphere1, redPlastic));
+	scene.addOpaqueObject(new VisibleIShape(sphere1, redPlastic, &im1));
     scene.addOpaqueObject(new VisibleIShape(closedConeY, cyanRubber));
-    scene.addOpaqueObject(new VisibleIShape(cylinderY, copper));
+    scene.addOpaqueObject(new VisibleIShape(cylinderY, copper, &im1));
 	scene.addOpaqueObject(new VisibleIShape(cylinderZ, polishedSilver));
 
 	scene.addLight(lights[0]);

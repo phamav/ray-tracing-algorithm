@@ -260,7 +260,7 @@ bool SpotLight::isInSpotlightCone(const dvec3& spotPos,
 	double spotFOV,
 	const dvec3& intercept) {
 	/* CSE 386 - todo  */
-	dvec3 l(glm::normalize(intercept - spotPos));
+	dvec3 l(glm::normalize(spotPos - intercept));
 	double spotCosine = glm::dot(-l, glm::normalize(spotDir));
 	// cos smaller for larger acute angles
 	// if spotCos is larger than the halfCos, point is in spotlight

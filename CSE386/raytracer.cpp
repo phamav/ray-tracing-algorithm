@@ -29,7 +29,7 @@ RayTracer::RayTracer(const color& defa)
  */
 
 void RayTracer::raytraceScene(FrameBuffer& frameBuffer, int depth,
-	const IScene& theScene) const {
+	const IScene& theScene, int N) const {
 	const RaytracingCamera& camera = *theScene.camera;
 	const vector<VisibleIShapePtr>& objs = theScene.opaqueObjs;
 	const vector<PositionalLightPtr>& lights = theScene.lights;
@@ -41,13 +41,29 @@ void RayTracer::raytraceScene(FrameBuffer& frameBuffer, int depth,
 				cout << "";
 			}
 			/* CSE 386 - todo  */
-			Ray ray = camera.getRay(x, y); // get the rayfor the pixel at (x, y)
-            color c = traceIndividualRay(ray, theScene, depth + 1);
-            c.r = std::max(0.0, std::min(c.r, 1.0));
-            c.g = std::max(0.0, std::min(c.g, 1.0));
-            c.b = std::max(0.0, std::min(c.b, 1.0));
-            frameBuffer.setColor(x, y, c);
-            frameBuffer.showAxes(x, y, ray, 0.25);			// Displays R/x, G/y, B/z axes
+            color sum = black;
+            // start at bottom right
+            double pixelX;
+            double pixelY = y + 1 / (2 * N);
+
+            // Sum up all rays from NxN grid (requires another nested loop)
+            for (int i = 0; i < N; i++) {
+                pixelX = x + 1 / (2 * N);
+                pixelX += 1.0 / N;
+                for (int j = 0; j < N; j++) {
+                    pixelY += 1.0 / N;
+                    sum += traceIndividualRay(camera.getRay(pixelX, pixelY), theScene, depth);
+                }
+            }
+            
+            sum /= glm::pow(N, 2);
+            sum.r = std::max(0.0, std::min(sum.r, 1.0));
+            sum.g = std::max(0.0, std::min(sum.g, 1.0));
+            sum.b = std::max(0.0, std::min(sum.b, 1.0));
+            Ray r = camera.getRay(x, y);
+            
+            frameBuffer.setColor(x, y, sum);
+            frameBuffer.showAxes(x, y, r, 0.25);			// Displays R/x, G/y, B/z axes
         }
 	}
 
@@ -71,45 +87,31 @@ color RayTracer::traceIndividualRay(const Ray& ray, const IScene& theScene, int 
     OpaqueHitRecord theHit;
     VisibleIShape::findIntersection(ray, theScene.opaqueObjs, theHit);
     color totalColor = black;
+    const vector<VisibleIShapePtr>& objs = theScene.opaqueObjs;
+    const vector<PositionalLightPtr>& lights = theScene.lights;
     // call illuminate
     // add lights
     // clip colors
-
-    // base case
-    if (recursionLevel == 0) {
-        return totalColor;
-    }
-    else {
-        recursionLevel--;
+    if (recursionLevel-- < 0) return totalColor;
+    
+    for (PositionalLightPtr light: lights) {
         if (theHit.t != FLT_MAX) {
-            if (recursionLevel > 0) {
-                color newOrigin = IShape::movePointOffSurface(theHit.interceptPt, theHit.normal);
-                color newDir = ray.dir - 2 * (glm::dot(ray.dir, theHit.normal)) * theHit.normal;
-                totalColor += 0.3 * traceIndividualRay(Ray(newOrigin, newDir), theScene, recursionLevel);
+            bool shadow = light->pointIsInAShadow(theHit.interceptPt, theHit.normal, objs, (*theScene.camera).getFrame());
+            totalColor += light->PositionalLight::illuminate(theHit.interceptPt, theHit.normal, theHit.material, (*theScene.camera).getFrame(), shadow);
+            if (theHit.texture != nullptr) {
+                color texel = theHit.texture->getPixelUV(theHit.u, theHit.v);
+                totalColor = 0.5 * (texel + totalColor);
             }
-            
-        }
-        for (PositionalLightPtr light : theScene.lights) {
-            if (theHit.t != FLT_MAX) {
-                if (theHit.texture != nullptr) {
-                    color texel = theHit.texture->getPixelUV(theHit.u, theHit.v);
-                    totalColor = 0.5 * (texel + totalColor);
-                }
-                else {
-                    bool shadow = light->pointIsInAShadow(theHit.interceptPt, theHit.normal, theScene.opaqueObjs, (*theScene.camera).getFrame());
-                    totalColor += light->PositionalLight::illuminate(theHit.interceptPt, theHit.normal, theHit.material, (*theScene.camera).getFrame(), shadow);
-                }
-
-                if (recursionLevel> 0) {
-                    color newOrigin = IShape::movePointOffSurface(theHit.interceptPt, theHit.normal);
-                    color newDir = ray.dir - 2 * (glm::dot(ray.dir, theHit.normal)) * theHit.normal;
-                    totalColor += 0.3 * traceIndividualRay(Ray(newOrigin, newDir), theScene, recursionLevel);
-                }
-            }
-            else {
-                totalColor += defaultColor;
-            }
+        } else {
+            return defaultColor;
         }
     }
+    
+    // calculate the reflected ray
+    color newOrigin = IShape::movePointOffSurface(theHit.interceptPt, theHit.normal);
+    color newDir = ray.dir - 2 * (glm::dot(ray.dir, theHit.normal)) * theHit.normal;
+    // get new color from reflected rays
+    totalColor += 0.3 * traceIndividualRay(Ray(newOrigin, newDir), theScene, recursionLevel--);
+    
 	return totalColor;
 }

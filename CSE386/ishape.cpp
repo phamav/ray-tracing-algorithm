@@ -749,8 +749,11 @@ void IClosedConeY::findClosestIntersection(const Ray& ray, HitRecord& hit) const
     if (coneHit.t == FLT_MAX && capHit.t == FLT_MAX) {
         hit.t = FLT_MAX;
     } else {
-        if (coneHit.t < capHit.t) hit = coneHit;
-        else hit = capHit;
+        if (coneHit.t < capHit.t) {
+            hit = coneHit;
+        } else {
+            hit = capHit;
+        }
     }
 }
 
