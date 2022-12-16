@@ -43,15 +43,15 @@ void RayTracer::raytraceScene(FrameBuffer& frameBuffer, int depth,
 			/* CSE 386 - todo  */
             color sum = black;
             // start at bottom right
-            double pixelX;
+            double pixelX = x + 1 / (2 * N);
             double pixelY = y + 1 / (2 * N);
 
             // Sum up all rays from NxN grid (requires another nested loop)
-            for (int i = 0; i < N; i++) {
-                pixelX = x + 1 / (2 * N);
-                pixelX += 1.0 / N;
-                for (int j = 0; j < N; j++) {
-                    pixelY += 1.0 / N;
+            for (int r = 0; r < N; r++) {
+                pixelX = x + 1 / (2 * N); // reset to original x pos
+                pixelY += 1.0 / N; // move down to next row
+                for (int c = 0; c < N; c++) {
+                    pixelX += 1.0 / N; // move to next column
                     sum += traceIndividualRay(camera.getRay(pixelX, pixelY), theScene, depth);
                 }
             }

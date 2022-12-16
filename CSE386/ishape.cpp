@@ -826,8 +826,12 @@ void ICylinderY::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
 */
 
 void ICylinderY::getTexCoords(const dvec3& pt, double& u, double& v) const {
-	/* CSE 386 - todo  */
-	u = v = 0.0;
+    v = map(pt.y, center.y - (length / 2), center.y + (length / 2), 0.0, 1.0);
+    double angle = normalizeRadians(glm::atan(pt.z - center.z, pt.x - center.x));
+    u = map(angle, 0.0, 2.0 * PI, 0.0, 1.0);
+    glm::clamp(v, 0.0, 1.0);
+    glm::clamp(u, 0.0, 1.0);
+    v = 1 - v;
 }
 
 /**
@@ -886,7 +890,6 @@ void ICylinderZ::findClosestIntersection(const Ray& ray, HitRecord& hit) const {
 
 void ICylinderZ::getTexCoords(const dvec3& pt, double& u, double& v) const {
     /* CSE 386 - todo  */
-    u = v = 0.0;
 }
 
 /**

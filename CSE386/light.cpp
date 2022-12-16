@@ -175,7 +175,7 @@ bool PositionalLight::pointIsInAShadow(const dvec3& intercept,
 	const Frame& eyeFrame) const {
 	/* CSE 386 - todo  */
 	// Intersection point i is determined
-	dvec3 i(intercept + normal * EPSILON);
+    dvec3 i = IShape::movePointOffSurface(intercept, normal);
 	// Determine distance from i to the light source
 	double distToLight = glm::distance(pos, i);
 	// Construct shadow feeler 
