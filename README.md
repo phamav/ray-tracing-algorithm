@@ -1,10 +1,10 @@
 # Computer Graphics Ray-tracing Project
-Basic implementation of ray-tracing for 3D objects
+Basic implementation of ray-tracing for 3D objects. 
 
 ## about
 Project for CSE 386: Computer Graphics
 Taught by Norm Krumpe
-Coded with C++
+Made with C++ in XCode
 
 ## features
 1. Objects: Plane, Cylinders, Cones, and Spheres.
